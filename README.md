@@ -1,2 +1,4 @@
 # Problem-solved
-This is a auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
+
+BaekJoon : s4078942 🖤
+SW Expert Academy : 최규호_9539950 🖤
