@@ -17,7 +17,6 @@ public class Main {
                 else{
                     System.out.println(queue.poll());
                 }
-                continue;
             }
             queue.add(input);
         }
