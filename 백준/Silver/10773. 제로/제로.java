@@ -1,4 +1,3 @@
-
 import java.util.Stack;
 import java.util.Scanner;
 
@@ -10,10 +9,8 @@ public class Main {
         Stack<Integer> stack = new Stack<>();
 
         int sum = 0;
-
         for(int i = 0 ; i < K; i++){
             int input = sc.nextInt();
-
             if(input!=0){
                 stack.push(input);
             }
@@ -25,7 +22,6 @@ public class Main {
                 stack.pop();
             }
         }
-
         while (!stack.isEmpty()){
             sum+=stack.pop();
         }
