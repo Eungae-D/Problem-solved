@@ -9,16 +9,17 @@ public class Main {
 
         int[] house = new int[n];
 
-        if(n==1){
-            System.out.println(sc.nextInt());
+        for(int i = 0 ; i < n; i++) {
+            house[i] = sc.nextInt();
         }
-        else{
-            for(int i = 0 ; i < n; i++) {
-                house[i] = sc.nextInt();
-            }
-            Arrays.sort(house);
-            
+
+        Arrays.sort(house);
+
+        if(n%2==0){
             System.out.println(house[(n-1)/2]);
+        }else{
+            System.out.println(house[n/2]);
         }
+
     }
 }
