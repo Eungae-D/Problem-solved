@@ -12,10 +12,10 @@ public class Main {
         int student = Integer.parseInt(st.nextToken());
 
         int answer = 0;
-        outer : for(int i = 1; i <= 50; i++){
-                    for(int j = 1; j <= 50; j++){
-                        for(int k = 1; k <= 50; k++){
-                            if(i<j && i<k && j<k && i*a+j*b+k*c==student){
+        outer : for(int i = 0; i <= 50; i++){
+                    for(int j = 0; j <= 50; j++){
+                        for(int k = 0; k <= 50; k++){
+                            if(i*a+j*b+k*c==student){
                             answer = 1;
                             break outer;
                     }
