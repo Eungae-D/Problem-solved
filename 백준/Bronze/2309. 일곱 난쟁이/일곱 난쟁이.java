@@ -5,32 +5,39 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int[] arr= new int[9];
-        int sum=0;
+        int[] arr = new int[9];
 
-        for(int i = 0; i < arr.length; i++){
-            int input = sc.nextInt();
+        int sum = 0;
 
-            sum+=input;
-            arr[i] = input;
-
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = sc.nextInt();
+            sum += arr[i];
         }
 
         Arrays.sort(arr);
 
 
-        outer: for(int i = 0 ; i < arr.length; i++){
-            for(int j = i+1; j < arr.length; j++){
-                if(sum-arr[i]-arr[j]==100){
-                    for(int k = 0; k < arr.length; k++){
-                        if(i == k || j == k){
-                            continue;
-                        }
-                        System.out.println(arr[k]);
+        int s = 0;
+        int e = 8;
+
+        while (s<e) {
+            int tmp = sum - arr[s]-arr[e];
+            if(tmp ==100){
+                for(int i = 0; i < 9; i++){
+                    if(i==s||i==e){
+                        continue;
                     }
-                    break outer;
+                    System.out.println(arr[i]);
                 }
+                break;
+            }
+            else if(tmp>100){
+                s++;
+            }else{
+                e--;
             }
         }
+
     }
 }
+
