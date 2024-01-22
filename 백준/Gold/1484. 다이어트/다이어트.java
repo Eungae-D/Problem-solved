@@ -9,9 +9,9 @@ public class Main {
         long s = 1;
         long e = 2;
 
-        //10만까지 임의로 해놓고 5만도 계산해보자
+        
         boolean flag = false;
-        while(e<1000001){
+        while(e<50001){
             long difValue = e*e-s*s;
 
             if(difValue==g){
