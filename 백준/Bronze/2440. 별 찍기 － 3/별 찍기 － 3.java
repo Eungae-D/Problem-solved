@@ -12,20 +12,18 @@ public class Main {
     private static void input() throws Exception{
         br = new BufferedReader(new InputStreamReader(System.in));
         st = new StringTokenizer(br.readLine());
+        sb = new StringBuilder();
         n = Integer.parseInt(st.nextToken());
     }
 
     private static void process() {
-
-        while (n>0){
-            for(int i = 0 ; i <n; i++){
-                System.out.print("*");
+        for(int i = 0 ; i < n ; i++){
+            for(int j = n-i; j>0; j--){
+                sb.append("*");
             }
-            System.out.println();
-            n--;
+            sb.append("\n");
         }
-
-
+        System.out.println(sb);
     }
     public static void main(String[] args) throws Exception{
         input();
