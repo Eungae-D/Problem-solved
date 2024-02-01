@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -49,9 +48,6 @@ public class Main {
         int leftIndex=-1;
         int rightIndex=-1;
 
-        boolean foundLeft = false;
-        boolean foundRight = false;
-
         //leftIndex x를 포함하며 제일 왼쪽
         while(leftS<=leftE){
             int mid = (leftS+leftE)/2;
@@ -62,7 +58,6 @@ public class Main {
             }else{
                 leftIndex = mid;
                 leftE= mid-1;
-                foundLeft = true;
             }
         }
 
@@ -76,15 +71,14 @@ public class Main {
             }else{
                 rightIndex = mid;
                 rightS= mid+1;
-                foundRight = true;
             }
         }
 
 
-        if (!foundLeft || !foundRight) {
+        if(leftIndex==-1 && rightIndex==-1){
             sb.append(0).append(" ");
-        } else {
-            sb.append(rightIndex - leftIndex + 1).append(" ");
+        }else{
+            sb.append(rightIndex-leftIndex+1).append(" ");
         }
     }
 
