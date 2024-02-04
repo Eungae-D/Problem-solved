@@ -1,50 +1,56 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N,K,max;
+    private static int[] arr;
 
-        //랜선갯수
-        int K = sc.nextInt();
-        //필요한랜선갯수
-        int N = sc.nextInt();
+    public static void input() throws Exception{
+        sb = new StringBuilder();
+        br = new BufferedReader(new InputStreamReader(System.in));
+        st = new StringTokenizer(br.readLine());
 
-        int []arr= new int[K];
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
 
-        //long형 이유 : min+max가 최댓값을 넘길수 있어서
-        long max = 0;
+        max = Integer.MIN_VALUE;
 
-        //max 값 갱신
-        for(int i = 0 ; i < K; i++){
-            arr[i] = sc.nextInt();
-            if(max<arr[i]){
-                max = arr[i];
+        arr= new int[N];
+
+        for(int i = 0 ; i < N ; i ++){
+            st = new StringTokenizer(br.readLine());
+            arr[i] = Integer.parseInt(st.nextToken());
+            max = Math.max(max,arr[i]);
+        }
+
+    }
+
+    public static void process(){
+        long s = 1;
+        long e = max;
+
+        while(s<=e){
+            long mid = (s+e)/2;
+            int cnt = 0;
+
+            for(int i = 0 ; i < N ; i++){
+                cnt +=arr[i]/mid;
+;            }
+
+            if(cnt>=K){
+                s=mid+1;
+            }else{
+                e=mid-1;
             }
         }
-        //주어진 수가 1밖에 없으면 mid 값이 0이 나올 수 있으므로
-        max++;
-
-        long min = 0;
-        long mid = 0;
-
-        while(min < max){
-            mid = (max+min)/2;
-
-            long count = 0;
-
-            for(int i = 0 ; i < arr.length; i++){
-                count +=(arr[i]/mid);
-            }
-
-            if(count < N){
-                max = mid;
-            }
-            else{
-                min = mid+1;
-            }
-
-        }
-        System.out.println(min-1);
-
+        System.out.println(e);
+    }
+    public static void main(String[] args) throws Exception{
+        input();
+        process();
     }
 }
