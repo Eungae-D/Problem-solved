@@ -8,6 +8,7 @@ public class Main {
     private static StringTokenizer st;
     private static int N,K,max;
     private static int[] arr;
+    private static int answer;
 
     public static void input() throws Exception{
         sb = new StringBuilder();
@@ -42,12 +43,13 @@ public class Main {
 ;            }
 
             if(cnt>=K){
+                answer = (int)mid;
                 s=mid+1;
             }else{
                 e=mid-1;
             }
         }
-        System.out.println(e);
+        System.out.println(answer);
     }
     public static void main(String[] args) throws Exception{
         input();
