@@ -27,9 +27,9 @@ public class Main {
     public static void recur(int cur){
         if(cur == M){
             for(int i = 0 ; i < M; i++){
-                System.out.print(arr[i]+" ");
+                sb.append(arr[i]+" ");
             }
-            System.out.println();
+            sb.append("\n");
             return;
         }
 
@@ -49,5 +49,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
         input();
         process();
+        System.out.println(sb);
     }
 }
