@@ -1,19 +1,30 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc=  new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int R1,average;
+    private static int R2;
 
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+        st = new StringTokenizer(br.readLine());
 
-        int R1 = sc.nextInt();
-        int S  = sc.nextInt();
+        R1 = Integer.parseInt(st.nextToken());
+        average = Integer.parseInt(st.nextToken());
+    }
 
-        for(int i = -1000; i<=1000; i++){
-            if((R1+i)/2==S){
-                System.out.println(i);
-                return;
-            }
-        }
+    public static void process() {
+        R2 = average*2-R1;
+        System.out.println(R2);
+    }
 
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
