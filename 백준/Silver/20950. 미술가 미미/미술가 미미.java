@@ -6,87 +6,53 @@ public class Main {
     private static StringBuilder sb;
     private static BufferedReader br;
     private static StringTokenizer st;
-    private static int N;
-    private static int[][]paints;
-    private static int[][]ans;
-    private static int[]gomColor = new int[3];
-    private static boolean[] visited;
-    private static int moonColor = Integer.MAX_VALUE;
+    private static int N ;
+    private static int[][] color;
+    private static int[] gom;
+    private static int answer = Integer.MAX_VALUE;
+
 
     public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
         sb = new StringBuilder();
         st = new StringTokenizer(br.readLine());
 
-        N= Integer.parseInt(st.nextToken());
-
-        paints = new int[N][3];
-        visited = new boolean[N];
+        N = Integer.parseInt(st.nextToken());
+        color = new int[N][3];
+        gom = new int[3];
 
         for(int i = 0 ; i < N ; i++){
             st = new StringTokenizer(br.readLine());
             for(int j = 0 ; j < 3; j++){
-                paints[i][j] = Integer.parseInt(st.nextToken());
+                color[i][j] = Integer.parseInt(st.nextToken());
             }
         }
 
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < 3; i++) {
-            gomColor[i] = Integer.parseInt(st.nextToken());
+        for(int i = 0 ; i < 3; i++){
+            gom[i] = Integer.parseInt(st.nextToken());
         }
-
     }
 
     public static void process() {
-        recur(0,0);
+        recur(0,0,0,0,0);
+        System.out.println(answer);
     }
 
-    public static void recur(int cur,int count){
-        if(count>1 && count<=7 ){
-            calculate();
+    public static void recur(int cur, int r, int g, int b, int count){
+        if(count >= 2 && count <= 7){
+            answer = Math.min(answer,Math.abs(gom[0] - r/count) + Math.abs(gom[1] - g/count) + Math.abs(gom[2] - b/count));
         }
-        if(cur==N ||count ==7) return;
 
-        //현재 물감 포함
-        visited[cur] = true;
-        recur(cur+1,count+1);
+        if(count == 7 || cur == N) return;
 
-        //현재 물감 불포함
-        visited[cur] =false;
-        recur(cur+1,count);
-
+        recur(cur+1, r+color[cur][0], g+color[cur][1], b+color[cur][2],count+1);
+        recur(cur+1,r,g,b,count);
     }
-
-    public static void calculate() {
-        int count = 0;
-        int[] mix = {0,0,0};
-
-        for(int i = 0 ; i < N ; i++){
-            if(visited[i]){
-                count++;
-
-                for(int j = 0 ; j < 3; j++){
-                    mix[j]+=paints[i][j];
-                }
-            }
-        }
-        
-
-        for(int i = 0 ; i < 3; i++){
-            mix[i]/=count;
-        }
-
-        int dif = Math.abs(mix[0]-gomColor[0])+Math.abs(mix[1]-gomColor[1])+Math.abs(mix[2]-gomColor[2]);
-        moonColor = Math.min(moonColor,dif);
-
-    }
-
-
 
 
     public static void main(String[] args) throws Exception {
         input();
         process();
-        System.out.println(moonColor);
     }
 }
