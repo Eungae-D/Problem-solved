@@ -1,16 +1,34 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int[] arr = new int[3];
-        for (int i = 0; i < 3; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());  
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static StringBuilder sb;
+    private static int[] arr;
+
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+        st = new StringTokenizer(br.readLine());
+
+        arr = new int[3];
+        for(int i = 0 ; i < 3; i++){
+            arr[i] = Integer.parseInt(st.nextToken());
         }
-        Arrays.sort(arr);  
-        for (int i = 0; i < 3; i++) {
-            System.out.print(arr[i] + " ");
+    }
+
+    public static void process(){
+        Arrays.sort(arr);
+        for(int i = 0 ; i < arr.length; i++){
+            System.out.print(arr[i]+" ");
         }
+    }
+
+    public static void main(String[] args) throws Exception{
+        input();
+        process();
     }
 }
