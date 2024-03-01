@@ -1,35 +1,57 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int size = sc.nextInt();
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static String[] arr;
 
-        String[] arr = new String[size];
 
-        for (int i = 0; i < size; i++) {
-            arr[i] = sc.next();
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+
+        N = Integer.parseInt(br.readLine());
+
+        arr = new String[N];
+
+        for(int i = 0 ; i < N ; i++){
+            arr[i] = br.readLine();
         }
+    }
 
-        Arrays.sort(arr, new Comparator<String>() {
-            public int compare(String o1, String o2) {
-                if (o1.length() == o2.length()) {
+    public static void process() {
+
+        Arrays.sort(arr,new Comparator<String>(){
+
+            @Override
+            public int compare(String o1, String o2){
+                if(o1.length() == o2.length()){
                     return o1.compareTo(o2);
-                } else {
+                }else{
                     return o1.length() - o2.length();
                 }
             }
         });
 
-        System.out.println(arr[0]);
+        sb.append(arr[0]).append("\n");
 
-        for(int i = 1; i < size;i++){
-            if(!arr[i].equals(arr[i-1])){
-                System.out.println(arr[i]);
-            }
+        for(int i = 1; i < arr.length; i++){
+            if(arr[i-1].equals(arr[i])) continue;
+            sb.append(arr[i]).append("\n");
         }
 
+        System.out.println(sb);
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
