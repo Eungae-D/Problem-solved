@@ -1,67 +1,66 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static boolean[][] arr;
-    public static int min = 64;
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N,M;
+    private static boolean[][]arr;
+    private static int answer = Integer.MAX_VALUE;
 
-    public static void main(String[] args) {
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+        st = new StringTokenizer(br.readLine());
 
-        Scanner sc = new Scanner(System.in);
-
-        int N = sc.nextInt();
-        int M = sc.nextInt();
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
         arr = new boolean[N][M];
 
-        for (int i = 0; i < N; i++) {
-            String line = sc.next();
-            for (int j = 0; j < M; j++) {
-                if (line.charAt(j) == 'W') {
+        for(int i = 0 ; i < N ; i++){
+            String line = br.readLine();
+            for(int j = 0 ; j < M ; j++){
+                if(line.charAt(j) == 'W'){
                     arr[i][j] = true;
-                } else {
+                }else{
                     arr[i][j] = false;
                 }
             }
         }
+    }
+    public static void find(int x, int y){
+        boolean start = arr[x][y];
+        
+        int cnt = 0;
 
-        //여기서부터는 몇번 돌아야하는지 설정
-        // 예를들어 8 8은 한번만 돌면 됨으로
-        int roundx = N - 7;
-        int roundy = M - 7;
+        for(int i = x ; i < x+8; i++){
+            for(int j = y ; j < y+8; j++){
+                if(arr[i][j]!=start){
+                    cnt++;
+                }
+                start = (!start);
+            }
+            start = (!start);
+        }
+        cnt = Math.min(cnt,64-cnt);
+        answer = Math.min(answer,cnt);
+    }
 
-        for(int i = 0 ; i < roundx; i++){
-            for(int j = 0 ; j < roundy; j++){
+    public static void process() {
+        for(int i = 0 ; i < N-7 ; i++){
+            for(int j = 0 ; j < M-7 ; j++){
                 find(i,j);
             }
         }
-        System.out.println(min);
-
-
+        System.out.println(answer);
     }
 
-    private static void find(int x, int y) {
-        //범위설정 x,y인덱스
-        int xIndex = x+8;
-        int yIndex = y+8;
-        int cnt = 0 ;
-
-        boolean TorF = arr[x][y];
-
-        for(int i = x ; i < xIndex; i++){
-            for (int j = y; j < yIndex; j++) {
-
-                if(arr[i][j]!=TorF){
-                    cnt++;
-                }
-                TorF = (!TorF);
-
-            }
-            TorF = (!TorF);
-        }
-        //첫번째 칸이 w일수도 b일수도 있으므로
-        cnt = Math.min(cnt,64-cnt);
-
-        min = Math.min(min,cnt);
-
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
