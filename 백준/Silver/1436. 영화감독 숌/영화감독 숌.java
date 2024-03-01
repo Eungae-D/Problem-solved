@@ -1,24 +1,43 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        //브루트포스
-        //효율이 좋지 않음.
-        int input = sc.nextInt();
+    private static BufferedReader br;
+    private static StringBuilder sb;
+    private static StringTokenizer st;
+    private static int N;
+    private static int count = 0;
+    private static int answer = 665;
 
-        int number = 666;
-        int cnt = 1;
 
-        while (input != cnt){
-            number++;
-            if(String.valueOf(number).contains("666")){
-                cnt++;
+    public static void input() throws Exception{
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+        st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+    }
+
+    public static void process(){
+        while (true){
+            answer++;
+
+            String line = String.valueOf(answer);
+
+            if(line.contains("666")){
+                count++;
+            }
+
+            if(count == N){
+                System.out.println(answer);
+                break;
             }
         }
+    }
 
-        System.out.println(number);
-
-
+    public static void main(String[] args) throws Exception{
+        input();
+        process();
     }
 }
