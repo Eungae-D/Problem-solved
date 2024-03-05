@@ -1,21 +1,34 @@
-
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
 
-        //이 문제는 1!부터 10! 까지 소인수 분해하면 정답이 보인다.
-        int input = sc.nextInt();
 
-        //bigInteger로 풀수 있지만 그것보단 dp처럼 규칙이 있다.
-        int cntF = 0;
-        while(input>=5){
-            cntF +=input/5;
-            input=input/5;
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+        st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+    }
+
+    public static void process() {
+        int cnt = 0;
+        while(N>=5){
+            cnt +=N/5;
+            N=N/5;
         }
-        System.out.println(cntF);
+        System.out.println(cnt);
+    }
 
 
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
