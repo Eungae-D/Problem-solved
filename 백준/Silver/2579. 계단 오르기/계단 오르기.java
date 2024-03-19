@@ -1,28 +1,48 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static int[] arr;
+    private static int[] dp;
 
-		int size = sc.nextInt();
 
-		int[] stairs = new int[301];
-		int[] dp = new int[301];
 
-		for (int i = 1; i <= size; i++) {
-			stairs[i] = sc.nextInt();
-		}
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-		dp[0] = 0;
-		dp[1] = stairs[1];
-		dp[2] = stairs[1] + stairs[2];
-		dp[3] = Math.max(stairs[1], stairs[2]) + stairs[3];
+        N= Integer.parseInt(br.readLine());
 
-		int count = 0;
-		for (int i = 4; i <= size; i++) {	
-			dp[i] = Math.max(dp[i-3]+stairs[i-1], dp[i-2])+stairs[i];
-		}
-		System.out.println(dp[size]);
+        arr = new int[N+1];
+        dp = new int[N+1];
 
-	}
+        for(int i = 1 ; i <= N ; i++){
+            arr[i] = Integer.parseInt(br.readLine());
+        }
+    }
+
+    public static void process() {
+        dp[1] = arr[1];
+
+        if(N >=2 ){
+            dp[2] = arr[1]+arr[2];
+        }
+
+        for(int i = 3; i <= N; i++){
+            dp[i] = Math.max(dp[i-2],dp[i-3]+arr[i-1])+arr[i];
+        }
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
+        System.out.println(dp[N]);
+    }
 }
