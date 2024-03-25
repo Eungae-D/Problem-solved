@@ -1,43 +1,56 @@
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static int[][] arr;
+    private static int answer = 0;
 
-		int size = sc.nextInt();
 
-		int[][] time = new int[size][2];
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-		for (int i = 0; i < size; i++) {
-			time[i][0] = sc.nextInt();
-			time[i][1] = sc.nextInt();
-		}
+        N = Integer.parseInt(br.readLine());
+        arr = new int[N][2];
 
-		// 종료시간 기준으로 오름차순 정렬 한뒤 종료시간 같으면 시작시간 기준 오름차순정렬
-		Arrays.sort(time, new Comparator<int[]>() {
-			@Override
-			public int compare(int[] o1, int[] o2) {
-				if (o1[1] == o2[1]) {
-					return o1[0] - o2[0];
-				}
-				return o1[1] - o2[1];
-			}
+        for(int i = 0 ; i < N ; i++){
+            st = new StringTokenizer(br.readLine());
+            arr[i][0] = Integer.parseInt(st.nextToken());
+            arr[i][1] = Integer.parseInt(st.nextToken());
+        }
 
-		});
+        Arrays.sort(arr, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2){
+                if(o1[1] == o2[1]){
+                    return o1[0]-o2[0];
+                }
+                return o1[1]-o2[1];
+            }
+        });
+    }
 
-		int cnt = 0;
-		int endtime = 0;
+    public static void process() {
+        int temp = 0;
+        for(int i = 0 ; i < N; i++){
+            if(temp <=arr[i][0]){
+                temp = arr[i][1];
+                answer++;
+            }
+        }
+        System.out.println(answer);
+    }
 
-		for (int i = 0; i < size; i++) {
-			if (endtime <= time[i][0]) {
-				endtime = time[i][1];
-				cnt++;
-			}
-		}
-		System.out.println(cnt);
 
-	}
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
+    }
 }
