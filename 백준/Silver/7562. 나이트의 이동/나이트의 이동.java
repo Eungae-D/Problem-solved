@@ -1,82 +1,99 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-	static class Node {
-		int x;
-		int y;
-		int len;
+    static class Node{
+        int x;
+        int y;
+        public Node(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int T;
+    private static int N;
+    private static int[][] arr;
+    private static boolean[][] visited;
+    private static int[] dx = {1,2,2,1,-1,-2,-2,-1};
+    private static int[] dy = {2,1,-1,-2,-2,-1,1,2};
+    private static Queue<Node> que;
+    private static int answer;
+    private static int startX,startY;
+    private static int endX,endY;
 
-		public Node(int x, int y, int len) {
-			this.x = x;
-			this.y = y;
-			this.len = len;
-		}
-	}
 
-	static int[] dx = { -2, -1, 1, 2, 2, 1, -1, -2 };
-	static int[] dy = { 1, 2, 2, 1, -1, -2, -2, -1 };
-	static boolean[][] visited;
-	static int[][] map;
-	static int size, move;
-	static int memox, memoy;
-	static int endx, endy;
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int T = sc.nextInt();
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-		for (int tc = 1; tc <= T; tc++) {
-			size = sc.nextInt();
-			map = new int[size][size];
-			visited = new boolean[size][size];
+        T = Integer.parseInt(br.readLine());
 
-			memox = sc.nextInt();
-			memoy = sc.nextInt();
+        for(int tc = 0 ; tc < T ; tc++){
 
-			endx = sc.nextInt();
-			endy = sc.nextInt();
+            answer = 0;
+            N = Integer.parseInt(br.readLine());
 
-			bfs(memox, memoy, 0);
+            arr= new int[N][N];
+            visited = new boolean[N][N];
 
-		}
-	}
+            st = new StringTokenizer(br.readLine());
+            startX = Integer.parseInt(st.nextToken());
+            startY = Integer.parseInt(st.nextToken());
 
-	private static void bfs(int p, int q, int len) {
-		Queue<Node> que = new LinkedList<>();
-		int x = p;
-		int y = q;
-		int length = len;
-		
-		que.offer(new Node(x, y, length));
-		visited[x][y] = true;
+            st = new StringTokenizer(br.readLine());
+            endX = Integer.parseInt(st.nextToken());
+            endY = Integer.parseInt(st.nextToken());
 
-		while (!que.isEmpty()) {
-			Node n = que.poll();
-			int xx = n.x;
-			int yy = n.y;
-			int ll = n.len;
+            process();
+        }
+    }
+    public static void bfs(){
+        que = new LinkedList<>();
+        que.add(new Node(startX,startY));
+        visited[startX][startY] = true;
 
-			if (xx == endx && yy == endy) {
-				System.out.println(ll);
-				return;
-			}
+        while (!que.isEmpty()){
+            int sz = que.size();
 
-			for (int i = 0; i < 8; i++) {
-				int dr = xx + dx[i];
-				int dc = yy + dy[i];
+            for(int s = 0 ; s<sz; s++) {
+                Node node = que.poll();
+                int curX = node.x;
+                int curY = node.y;
 
-				if (dr < 0 || dc < 0 || dr >= size || dc >= size) {
-					continue;
-				}
+                if (curX == endX && curY == endY) {
+                    System.out.println(answer);
+                    return;
+                }
 
-				if (!visited[dr][dc] && map[dr][dc] == 0) {
-					que.offer(new Node(dr, dc, ll + 1));
-					visited[dr][dc] = true;
-				}
-			}
+                for (int i = 0; i < 8; i++) {
+                    int dr = curX + dx[i];
+                    int dc = curY + dy[i];
 
-		}
-	}
+                    if (dr >= 0 && dc >= 0 && dr < N && dc < N) {
+                        if (visited[dr][dc]) continue;
+
+                        que.add(new Node(dr, dc));
+                        visited[dr][dc] = true;
+                    }
+                }
+            }
+            answer++;
+        }
+    }
+
+    public static void process() {
+        bfs();
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+    }
 }
