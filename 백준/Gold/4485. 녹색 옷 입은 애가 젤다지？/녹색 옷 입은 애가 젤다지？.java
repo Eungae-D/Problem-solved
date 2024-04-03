@@ -29,9 +29,7 @@ public class Main {
     private static int[]dy = {0,0,1,-1};
     private static int count = 0;
     private static int answer = 0;
-    private static PriorityQueue<Node> que = new PriorityQueue<Node>();
-    private static boolean[][] visited;
-
+    private static PriorityQueue<Node> que;
 
     public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
@@ -44,7 +42,6 @@ public class Main {
             N = Integer.parseInt(line);
 
             arr = new int[N][N];
-            visited = new boolean[N][N];
 
             dijkstra = new int[N][N];
             for(int i = 0 ; i < N; i++){
@@ -64,25 +61,23 @@ public class Main {
     }
 
     public static void bfs(){
-        que.clear();
+        que = new PriorityQueue<>();
         que.add(new Node(0,0,arr[0][0]));
         dijkstra[0][0] = arr[0][0];
-//        visited[0][0] = true;
 
         while (!que.isEmpty()){
             Node node = que.poll();
 
-//            if(node.x == N-1 && node.y ==N-1){
-//                answer = node.w;
-//                return;
-//            }
+            if(node.x == N-1 && node.y ==N-1){
+                answer = node.w;
+                return;
+            }
+
             for(int i = 0 ; i < 4;  i++){
                 int dr = node.x + dx[i];
                 int dc = node.y + dy[i];
 
                 if(dr<0 || dc<0 || dr >= N || dc >= N) continue;
-
-//                if(visited[dr][dc]) continue;
 
                 if(node.w + arr[dr][dc] < dijkstra[dr][dc]){
                     dijkstra[dr][dc] = node.w+arr[dr][dc];
