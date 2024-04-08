@@ -40,23 +40,20 @@ public class Main {
             v.get(e).add(s);
         }
     }
-    public static int dfs(int cur, int prv){
-        int count = 0;
-        if(colors[cur] != colors[prv]){
-            count = 1;
-        }
+    public static void dfs(int cur, int prv){
         for(int nxt : v.get(cur)){
             if(nxt == prv) continue;
 
-            count +=dfs(nxt,cur);
+            if(colors[nxt] != colors[cur]) count++;
+
+            dfs(nxt,cur);
         }
-        return count;
     }
 
     public static void process() {
-
-        int answer = dfs(1,0);
-        System.out.println(answer);
+        count = colors[1] == 0 ? 0 : 1;
+        dfs(1,0);
+        System.out.println(count);
     }
 
 
