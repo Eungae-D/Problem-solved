@@ -1,43 +1,47 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static int[] arr;
+    private static int sum = 0;
 
-        int[] arr = new int[9];
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        int sum = 0;
-
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = sc.nextInt();
+        arr = new int[9];
+        for(int i = 0 ; i < 9; i++){
+            arr[i] = Integer.parseInt(br.readLine());
             sum += arr[i];
         }
 
         Arrays.sort(arr);
-
-
-        int s = 0;
-        int e = 8;
-
-        while (s<e) {
-            int tmp = sum - arr[s]-arr[e];
-            if(tmp ==100){
-                for(int i = 0; i < 9; i++){
-                    if(i==s||i==e){
-                        continue;
+    }
+    
+    //과정
+    public static void process() {
+        outer : for(int i = 0 ; i < 8; i++){
+            for(int j = i+1 ; j < 9 ; j++){
+                if(sum-arr[i]-arr[j] == 100){
+                    for(int k = 0 ; k < 9 ; k++){
+                        if( i==k || j ==k ) continue ;
+                        sb.append(arr[k]).append("\n");
                     }
-                    System.out.println(arr[i]);
+                    break outer;
                 }
-                break;
-            }
-            else if(tmp>100){
-                s++;
-            }else{
-                e--;
             }
         }
+        System.out.println(sb.toString());
+    }
 
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
-
