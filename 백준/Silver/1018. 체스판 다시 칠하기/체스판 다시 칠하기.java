@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -8,9 +7,10 @@ public class Main {
     private static BufferedReader br;
     private static StringTokenizer st;
     private static int N,M;
-    private static boolean[][]arr;
+    private static boolean[][] arr;
     private static int answer = Integer.MAX_VALUE;
 
+    //입력
     public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
         sb = new StringBuilder();
@@ -20,7 +20,6 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
 
         arr = new boolean[N][M];
-
         for(int i = 0 ; i < N ; i++){
             String line = br.readLine();
             for(int j = 0 ; j < M ; j++){
@@ -32,24 +31,27 @@ public class Main {
             }
         }
     }
+    
+    //다시 칠해야 하는 정사각형 찾기
     public static void find(int x, int y){
-        boolean start = arr[x][y];
-        
+        boolean check = arr[x][y];
+
         int cnt = 0;
 
-        for(int i = x ; i < x+8; i++){
-            for(int j = y ; j < y+8; j++){
-                if(arr[i][j]!=start){
+        for(int i = x ; i < x+8 ; i++){
+            for(int j = y ; j < y+8 ; j++){
+                if(arr[i][j] != check){
                     cnt++;
                 }
-                start = (!start);
+                check = (!check);
             }
-            start = (!start);
+            check = (!check);
         }
         cnt = Math.min(cnt,64-cnt);
         answer = Math.min(answer,cnt);
     }
 
+    //과정
     public static void process() {
         for(int i = 0 ; i < N-7 ; i++){
             for(int j = 0 ; j < M-7 ; j++){
@@ -58,6 +60,7 @@ public class Main {
         }
         System.out.println(answer);
     }
+
 
     public static void main(String[] args) throws Exception {
         input();
