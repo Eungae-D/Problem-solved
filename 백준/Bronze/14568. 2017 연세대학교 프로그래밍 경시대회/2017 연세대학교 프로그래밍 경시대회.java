@@ -1,26 +1,36 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static BufferedReader br;
+    private static int N;
+    private static int answer = 0;
 
-        int candy = sc.nextInt();
+    public static void input() throws Exception{
+        br = new BufferedReader(new InputStreamReader(System.in));
 
-        int count = 0;
+        N= Integer.parseInt(br.readLine());
+    }
+    public static void process() {
+        for(int i = 1 ; i < N; i++){
+            for(int j = 1 ; j < N ; j++){
+                for(int k = 1 ; k < N ; k++){
+                    if(N-(i+j+k) !=0 ) continue;
 
-        for(int i = 1 ; i < 100; i++){
-            for(int j = 1; j < 100; j++){
-                for(int k = 1; k < 100; k++){
-                    if(candy-(i+j+k)==0 && k>=j+2 && i%2==0){
-                        count++;
-                    }
+                    if(i%2==1) continue;
+
+                    if(j < k+2) continue;
+
+                    answer++;
                 }
             }
         }
-        if(count==0){
-            System.out.println(0);
-        }else{
-            System.out.println(count);
-        }
+
+        System.out.println(answer);
+    }
+
+    public static void main(String[] args) throws Exception{
+        input();
+        process();
     }
 }
