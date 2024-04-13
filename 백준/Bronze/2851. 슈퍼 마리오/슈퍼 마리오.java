@@ -1,41 +1,53 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int[] arr;
+    private static int sum = 0;
+    private static int height,nextHeight,heightABS,nextHeightABS;
 
-        int[] arr = new int[10];
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        for(int i = 0 ; i < 10; i++){
+        arr = new int[10];
+        for(int i = 0 ; i < 10 ; i++){
             arr[i] = Integer.parseInt(br.readLine());
         }
+    }
 
-        int sum = 0;
-        int height = 0;
-        int nextHeight = 0;
-
-
-        for(int i = 0 ; i < 10; i++){
-            sum+= arr[i];
-            if(sum <= 100){
+    //실행
+    public static void process() {
+        for(int i = 0 ; i < 10 ; i++){
+            sum += arr[i];
+            if(sum<=100){
                 height = sum;
-            }else if(sum > 100){
+            }else{
                 nextHeight = sum;
                 break;
             }
         }
 
+        heightABS = Math.abs(100-height);
+        nextHeightABS = Math.abs(100 - nextHeight);
 
-        if(Math.abs(100-height)>Math.abs(100-nextHeight)){
+        if(heightABS > nextHeightABS){
             System.out.println(nextHeight);
-        }else if(Math.abs(100-height)<Math.abs(100-nextHeight)){
+        }else if(heightABS < nextHeightABS){
             System.out.println(height);
         }else{
             System.out.println(nextHeight);
         }
+    }
 
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
