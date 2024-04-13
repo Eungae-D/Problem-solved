@@ -3,37 +3,40 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    private static StringBuilder sb;
+    private static StringBuilder answer;
     private static BufferedReader br;
     private static StringTokenizer st;
+    private static String line;
 
-
+    //입력
     public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
-        sb = new StringBuilder();
+        answer = new StringBuilder();
 
         while (true){
-            String line = br.readLine();
+            line = br.readLine();
             if(line.equals("0")) break;
-            process(line);
+            process();
         }
     }
 
-    public static void process(String line) {
-        StringBuilder compare = new StringBuilder();
-        compare.append(line);
-        compare.reverse();
-        if(line.equals(compare.toString())){
-            sb.append("yes").append("\n");
+    //실행
+    public static void process() {
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append(line);
+        sb.reverse();
+        
+        if(line.equals(sb.toString())){
+            answer.append("yes").append("\n");
         }else{
-            sb.append("no").append("\n");
+            answer.append("no").append("\n");
         }
-
     }
 
 
     public static void main(String[] args) throws Exception {
         input();
-        System.out.println(sb);
+        System.out.println(answer.toString());
     }
 }
