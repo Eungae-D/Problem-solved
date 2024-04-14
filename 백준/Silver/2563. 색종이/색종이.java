@@ -1,37 +1,44 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static int[][]arr = new int[110][110];
+    private static int answer = 0;
 
-		int tc = sc.nextInt();
-		int[][] arr = new int[100][100];
-		int sum = 0;
-		
-		int count = 0;
-		for (int i = 0; i < tc; i++) {
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-			int n = sc.nextInt();
-			int m = sc.nextInt();
-			
-			for (int j = n; j < 10 + n; j++) {
-				for (int k = m; k < 10 + m; k++) {
-					arr[j][k] = 1;
-				}
-			}
-		}
+        N = Integer.parseInt(br.readLine());
 
-			for (int a = 0; a < 100; a++) {
-				for (int b = 0; b < 100; b++) {
+        for(int i = 0 ; i < N ; i++){
+            st = new StringTokenizer(br.readLine());
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+            process(x,y);
+        }
+    }
 
-					if (arr[a][b] == 1) {
-						count++;
-					}
-				}
-			}
+    //실행
+    public static void process(int x, int y) {
+        for(int i = x ; i < x+10 ; i++){
+            for(int j = y ; j < y+10 ; j++){
+                if(arr[i][j] == 0 ){
+                    arr[i][j] = 1;
+                    answer++;
+                }
+            }
+        }
+    }
 
-			System.out.println(count);
-		}
-	}
-	
-
+    public static void main(String[] args) throws Exception {
+        input();
+        System.out.println(answer);
+    }
+}
