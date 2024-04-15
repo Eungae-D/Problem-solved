@@ -1,53 +1,69 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static int[][] arr;
+    private static int count = 0;
 
-        int n = sc.nextInt();
-        int[][] arr = new int[n][3];
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        for (int i = 0; i < n; i++) {
-            arr[i][0] = sc.nextInt();
-            arr[i][1] = sc.nextInt();
-            arr[i][2] = sc.nextInt();
-        }
+        N = Integer.parseInt(br.readLine());
+        arr = new int[N][3];
 
-        int count = 0;
-
-        for (int i = 123; i <= 987; i++) {
-            String candidate = String.valueOf(i);
-            if (candidate.charAt(0) == candidate.charAt(1) || candidate.charAt(0) == candidate.charAt(2) || candidate.charAt(1) == candidate.charAt(2)
-                    || candidate.contains("0")) {
-                continue;
+        for(int i = 0 ; i < N ; i++){
+            st = new StringTokenizer(br.readLine());
+            for(int j = 0 ; j < 3 ; j++){
+                arr[i][j] = Integer.parseInt(st.nextToken());
             }
+        }
+    }
+
+    //실행
+    public static void process() {
+        for(int i = 123 ; i <= 987 ; i++){
+            String comp = String.valueOf(i);
+
+            if(comp.charAt(0) == comp.charAt(1) || comp.charAt(1) == comp.charAt(2) || comp.charAt(2) == comp.charAt(0) || comp.contains("0")) continue;
 
             boolean isValid = true;
 
-            for (int j = 0; j < n; j++) {
-                String question = String.valueOf(arr[j][0]);
+            for(int j = 0 ; j < N ; j++){
+                String q = String.valueOf(arr[j][0]);
                 int strike = 0;
                 int ball = 0;
 
-                for (int k = 0; k < 3; k++) {
-                    if (candidate.charAt(k) == question.charAt(k)) {
+                for(int k = 0 ; k < 3 ; k++){
+                    if(comp.charAt(k) == q.charAt(k)){
                         strike++;
-                    } else if (candidate.contains(String.valueOf(question.charAt(k)))) {
+                    }else if(comp.contains(String.valueOf(q.charAt(k)))){
                         ball++;
                     }
                 }
 
-                if (strike != arr[j][1] || ball != arr[j][2]) {
+                if(strike != arr[j][1] || ball != arr[j][2]){
                     isValid = false;
                     break;
                 }
             }
 
-            if (isValid) {
-                count++;
-            }
+            if(isValid) count++;
         }
 
         System.out.println(count);
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
