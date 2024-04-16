@@ -1,42 +1,57 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc= new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static int[] arr;
+    private static TreeSet<Integer> set = new TreeSet<Integer>();
+    private static int answer = 0 ;
 
-        int n = sc.nextInt();
 
-        int[] arr= new int[n];
-        Set<Integer> set = new HashSet<>();
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        for(int i = 0; i < n ; i++){
-            arr[i] = sc.nextInt();
+        N = Integer.parseInt(br.readLine());
+
+        arr = new int[N];
+        for(int i = 0 ; i < N ; i++){
+            arr[i] = Integer.parseInt(br.readLine());
             set.add(arr[i]);
         }
+    }
 
-        int max = 0;
-
+    //실행
+    public static void process() {
         for(int i : set){
             int count = 0;
             int temp = -1;
-            for(int j = 0 ; j < n ; j++){
-                if(arr[j]==i){
-                    continue;
-                }
-                if(arr[j]!=temp){
-                    max = Math.max(max, count);
+
+            for(int j = 0 ; j < N ; j++){
+                if(arr[j] == i) continue;
+
+                if(arr[j] != temp){
+                    answer = Math.max(answer, count);
                     temp = arr[j];
                     count = 1;
-                }
-                else{
+                }else{
                     count++;
                 }
             }
-            max = Math.max(max, count);
+            answer = Math.max(answer,count);
         }
-        System.out.println(max);
+        System.out.println(answer);
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
