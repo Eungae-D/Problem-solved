@@ -22,7 +22,7 @@ public class Main {
         long tmp = K;
 
         //소인수분해 구하기
-        for(long i = 2 ; i*i <K+1 ; i++){
+        for(long i = 2 ; i*i < K+1 ; i++){
             while(tmp % i == 0){
                 sb.append(i+" ");
                 count++;
@@ -34,13 +34,14 @@ public class Main {
             sb.append(tmp);
             count++;
         }
+
+        System.out.println(count);
+        System.out.println(sb.toString());
     }
 
 
     public static void main(String[] args) throws Exception {
         input();
         process();
-        System.out.println(count);
-        System.out.println(sb.toString());
     }
 }
