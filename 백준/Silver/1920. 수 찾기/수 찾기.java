@@ -1,51 +1,65 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    //이분탐색으로 풀어내자
-    public static void main(String[] args) {
-        Scanner sc= new Scanner(System.in);
-        StringBuilder sb = new StringBuilder();
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N,M;
+    private static int[] arr;
 
-        int size = sc.nextInt();
-        int []arr = new int[size];
 
-        for(int i = 0 ; i < size; i++){
-            arr[i] = sc.nextInt();
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+
+        N = Integer.parseInt(br.readLine());
+
+        arr = new int[N];
+
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < N; i++){
+            arr[i] =Integer.parseInt(st.nextToken());
         }
+
         Arrays.sort(arr);
 
-        int M = sc.nextInt();
+        M = Integer.parseInt(br.readLine());
 
-        for(int i = 0 ; i<M; i++){
-            if(Search(arr,sc.nextInt())>=0){
-                sb.append(1).append('\n');
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < M; i++){
+            if(process(Integer.parseInt(st.nextToken()))){
+                sb.append('1').append("\n");
+            }else{
+                sb.append('0').append("\n");
             }
-            else sb.append(0).append('\n');
         }
-        System.out.println(sb);
-
-
-
-
     }
 
-    private static int Search(int[] arr, int key) {
-        int leftIndex = 0;
-        int rightIndex = arr.length-1;
+    public static boolean process(int input) {
+        int s = 0;
+        int e = N-1;
 
-        while(leftIndex<=rightIndex){
-            int mid = (leftIndex+rightIndex)/2;
+        while(s<=e){
+            int mid = (s+e)/2;
 
-            if(key<arr[mid]){
-                rightIndex = mid-1;
-            } else if (key>arr[mid]) {
-                leftIndex = mid+1;
-            }
-            else{
-                return mid;
+            if(input<arr[mid]){
+                e = mid-1;
+
+            }else if(input>arr[mid]){
+                s = mid+1;
+            }else{
+                return true;
             }
         }
-        return -1;
+        return false;
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        System.out.println(sb);
     }
 }
