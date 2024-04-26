@@ -1,57 +1,76 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        StringBuilder sb = new StringBuilder();
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int T;
+    private static int N,M;
+    private static LinkedList<int[]> que;
+    private static int count;
 
-        int T = sc.nextInt();
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        for (int tc = 1; tc <= T; tc++) {
-            int N = sc.nextInt();
-            int idx = sc.nextInt();
+        T = Integer.parseInt(br.readLine());
 
-            LinkedList<int[]> q = new LinkedList<>();
+        for(int tc = 0 ; tc < T ; tc++){
+            st = new StringTokenizer(br.readLine());
 
-            for (int i = 0; i < N; i++) {
-                q.offer(new int[]{i, sc.nextInt()});
+            N = Integer.parseInt(st.nextToken());
+            M = Integer.parseInt(st.nextToken());
+
+            st = new StringTokenizer(br.readLine());
+
+            que = new LinkedList<>();
+            for(int i = 0 ; i < N ; i++){
+                que.add(new int[] {Integer.parseInt(st.nextToken()) , i});
             }
 
-            int count = 0;
+            process();
+        }
+    }
 
-            while (!q.isEmpty()) {
-                int[] first = q.poll();
-                boolean isMax = true;
+    //실행
+    public static void process() {
+        count = 0 ;
 
-                for (int i = 0; i < q.size(); i++) {
-                    if (first[1] < q.get(i)[1]) {
-                        q.offer(first);
-                        for (int j = 0; j < i; j++) {
-                            q.offer(q.poll());
-                        }
+        while(!que.isEmpty()){
+            int[] q = que.poll();
+            boolean max = true;
 
-                        isMax = false;
-                        break;
-
+            for(int i = 0 ; i < que.size() ; i++){
+                if(q[0] < que.get(i)[0]){
+                    que.add(q);
+                    for(int j = 0 ; j < i ; j++){
+                        que.add(que.poll());
                     }
-                }
 
-                if (isMax == false) {
-                    continue;
-                }
-
-                count++;
-                if (first[0] == idx) {
+                    max = false;
                     break;
                 }
             }
-            sb.append(count).append('\n');
 
+            if(!max) continue;
 
+            count++;
+            if(q[1] == M){
+                break;
+            }
         }
+
+        sb.append(count).append("\n");
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
         System.out.println(sb);
-
-
     }
 }
