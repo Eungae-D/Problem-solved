@@ -1,68 +1,78 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
-class Main {
-    static int[] cnt = new int[8001];
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
+public class Main {
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static int[] arr = new int[8010];
+    private static int sum; //산술평균 //OK
+    private static int mid; //중앙값 //OK
+    private static int count; // 최빈값
+    private static int max = Integer.MIN_VALUE; //범위
+    private static int min = Integer.MAX_VALUE; //범위
 
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        int max = Integer.MIN_VALUE;
-        int min = Integer.MAX_VALUE;
-        //합
-        int sum = 0;
+        N = Integer.parseInt(br.readLine());
 
+        for(int i = 0 ; i < N ; i++){
+            int input = Integer.parseInt(br.readLine());
 
-        //중앙값
-        int medium = 10000;
+            arr[input+4000]++;
+            sum += input;
 
-        // 최빈값
-        int mode = 10000;
-
-
-        for (int i = 0; i < N; i++) {
-            int number = sc.nextInt();
-            cnt[4000 + number]++;
-
-            sum += number;
-
-            if (number > max) {
-                max = number;
+            if(input > max){
+                max = input;
             }
 
-            if (number < min) {
-                min = number;
+            if(input < min){
+                min = input;
             }
         }
+    }
 
-        int count = 0;
-        int mode_max = 0;
-
+    //실행
+    public static void process() {
+        int midCount = 0 ;
+        int recentCnt = 0;
         boolean flag = false;
 
-        for (int i = min + 4000; i <= max + 4000; i++) {
-            if (cnt[i] > 0) {
-                //아오 알고리즘 왤케 어질어질
+        for(int i = min+4000 ; i <= max+4000 ; i++){
+            if(arr[i] > 0){
                 //중앙값
-                if (count < (N + 1) / 2) {
-                    count += cnt[i];
-                    medium = i - 4000;
+                if(midCount < (N+1)/2){
+                    midCount += arr[i];
+                    mid = i-4000;
                 }
+
                 //최빈값
-                //한번 나왔으면
-                if (mode_max < cnt[i]) {
-                    mode_max = cnt[i];
-                    mode = i - 4000;
+                if(recentCnt < arr[i]){
+                    recentCnt = arr[i];
+                    count = i-4000;
                     flag = true;
-                } else if (flag == true && mode_max == cnt[i]) {
-                    mode = i - 4000;
+                }else if(flag == true && recentCnt == arr[i]){
+                    count = i-4000;
                     flag = false;
                 }
             }
         }
-        System.out.println((int) Math.round((float) sum / N));
-        System.out.println(medium);
-        System.out.println(mode);
+
+        System.out.println((int)Math.round((float)sum/N));
+        System.out.println(mid);
+        System.out.println(count);
         System.out.println(max-min);
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
