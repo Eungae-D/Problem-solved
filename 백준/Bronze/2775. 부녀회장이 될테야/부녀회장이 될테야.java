@@ -1,45 +1,49 @@
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int T;
+    private static int K,E;
+    private static int[][] arr = new int[15][15];
 
-		// 응애 나는 부녀회장이 될테야
-		int T = sc.nextInt();
-		// 0층에 0~14명 살고
-		for (int tc = 0; tc < T; tc++) {
-			int[] arr = new int[15];
-			for (int i = 0; i < arr.length; i++) {
-				arr[i] = i;
-			}
-			int[] cnt = new int[15];
-			// 이거 그냥 그 카운트 배열 만들고
-			// 누적합 그거 같은데.....
-			// 그뭐냐... 기억이안나내
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-			// 이게 반복문 수 층
-			// 이걸 왜못푸냐 진짜;;;;;;;;;;;;;;;;;;;;;
-			int k = sc.nextInt();
-			// 이게 호수
-			int n = sc.nextInt();
+        T = Integer.parseInt(br.readLine());
 
-			for (int i = 0; i < k; i++) {
-				for (int j = 1; j < arr.length; j++) {
-					cnt[j] = cnt[j - 1] + arr[j];
-					arr[j] = cnt[j];
-				}
-				for (int l = 0; l < arr.length; l++) {
-					cnt[l] = 0;
-				}
+        for(int i = 0 ; i < 15; i++){
+            arr[0][i] = i;
+        }
 
-			}
-			
-			
-			System.out.println(arr[n]);
+        for(int i = 1 ; i < 15; i++){
+            int person = 0;
+            for(int j = 1 ; j < 15; j++){
+                person += arr[i-1][j];
+                arr[i][j] = person;
+            }
+        }
 
-		}
+        for(int tc = 0 ; tc<T ; tc++){
+            K = Integer.parseInt(br.readLine());
+            E = Integer.parseInt(br.readLine());
+            process();
+        }
+    }
 
-	}
+    //실행
+    public static void process() {
+        System.out.println(arr[K][E]);
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+    }
 }
