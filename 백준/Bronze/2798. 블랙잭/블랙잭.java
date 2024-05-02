@@ -36,8 +36,8 @@ public class Main {
                 for(int k = 0 ; k < N ; k++){
                     if( i==k || j==k || i==k) continue;
 
-                    if(arr[i]+arr[j]+arr[k] <= M && sum < arr[i]+arr[j]+arr[k]){
-                        sum = arr[i]+arr[j]+arr[k];
+                    if(arr[i]+arr[j]+arr[k] <= M){
+                        sum = Math.max(sum,arr[i]+arr[j]+arr[k]);
                     }
                 }
             }
