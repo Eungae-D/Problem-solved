@@ -1,26 +1,46 @@
-
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int input = sc.nextInt();
-		int count = 1;
-		int range = 2;
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static long N;
 
-		if (input == 1) {
-			System.out.println(1);
-		}
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-		else {
-			while (range <= input) {
-				range = range + (6 * count);
-				count++;
+        N = Long.parseLong(br.readLine());
+    }
 
-			}
-			System.out.println(count);
-		}
+    //실행
+    public static void process() {
+        long depth = 1;
+        long x = 1;
 
-	}
 
+        if(N==1){
+            System.out.println(1);
+            return;
+        }
+
+        while (true){
+            if(N<=x){
+                System.out.println(depth);
+                break;
+            }
+            
+            x =x+(6*depth);
+            depth++;
+        }
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
+    }
 }
