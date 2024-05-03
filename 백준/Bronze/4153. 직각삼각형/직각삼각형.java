@@ -1,29 +1,41 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int a,b,c;
+    private static int max = 0;
 
-		while (true) {
-			int a = sc.nextInt();
-			int b = sc.nextInt();
-			int c = sc.nextInt();
-			if (a == 0 && b == 0 && c == 0) {
-				break;
-			}
-			if ((a * a) + (b * b) == (c * c)) {
-				System.out.println("right");
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-			} else if ((b * b) + (c * c) == (a * a)) {
-				System.out.println("right");
+        while(true){
+            st = new StringTokenizer(br.readLine());
+            a = Integer.parseInt(st.nextToken());
+            b = Integer.parseInt(st.nextToken());
+            c = Integer.parseInt(st.nextToken());
 
-			} else if ((c * c) + (a * a) == (b * b)) {
-				System.out.println("right");
+            if( a==0 && b==0 && c == 0) break;
 
-			} else {
-				System.out.println("wrong");
+            process();
+        }
+    }
 
-			}
-		}
-	}
+    //실행
+    public static void process() {
+        if ((a * a) + (b * b) == (c * c)) System.out.println("right");
+        else if ((b * b) + (c * c) == (a * a)) System.out.println("right");
+        else if ((c * c) + (a * a) == (b * b)) System.out.println("right");
+        else System.out.println("wrong");
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+    }
 }
