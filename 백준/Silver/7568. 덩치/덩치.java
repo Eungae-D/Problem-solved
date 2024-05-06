@@ -1,32 +1,55 @@
-
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static int[][]arr;
+    private static int rank = 1;
 
-        int[][]arr = new int[N][2];
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        for(int i = 0; i < N; i++){
-            arr[i][0] = sc.nextInt();
-            arr[i][1] = sc.nextInt();
+        N = Integer.parseInt(br.readLine());
+
+        arr = new int[N][2];
+        for(int i = 0 ; i < N ; i++){
+            st = new StringTokenizer(br.readLine());
+            for(int j = 0 ; j < 2 ; j++){
+                arr[i][j] = Integer.parseInt(st.nextToken());
+            }
         }
+    }
 
-        for(int i = 0 ; i < N; i++){
-            int rank = 1;
+    //실행
+    public static void process() {
+        for(int i = 0 ; i < N ; i++){
+            int weight = arr[i][0];
+            int height = arr[i][1];
 
             for(int j = 0 ; j < N ; j++){
-                if(i==j) continue;
+                if(i == j) continue;
 
-                if(arr[i][0]<arr[j][0] && arr[i][1] < arr[j][1]){
+                if(weight<arr[j][0] && height < arr[j][1]){
                     rank++;
                 }
-
-
             }
-            System.out.print(rank+" ");
+
+            sb.append(rank).append(" ");
+            rank = 1;
         }
 
+        System.out.println(sb.toString());
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
