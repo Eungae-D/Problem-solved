@@ -1,51 +1,59 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Stack;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static Stack<Character> stack;
+
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
         while (true) {
-            String line = sc.nextLine();
+            String line = br.readLine();
 
-            if (line.equals(".")) {
-                break;
-            }
-            System.out.println(probelm(line));
+            if(line.charAt(0) == '.') break;
 
+            sb.append(process(line)).append("\n");
         }
     }
 
-    private static String probelm(String line) {
-        Stack<Character> stack = new Stack<>();
+    //실행
+    public static String process(String line) {
+        stack = new Stack<>();
 
-        int size = line.length();
-        for (int i = 0; i < size; i++) {
-            char c = line.charAt(i);
+        for(int i = 0 ; i < line.length(); i++){
+          char c = line.charAt(i);
 
-            if (c == '(' || c == '[') {
-                stack.push(c);
-            } else if (c == ')') {
-                if (stack.isEmpty() || stack.peek() != '(') {
-                    return "no";
-                } else {
-                    stack.pop();
-                }
-            } else if (c == ']') {
-                if (stack.isEmpty() || stack.peek() != '[') {
-                    return "no";
-                } else {
-                    stack.pop();
-                }
-            }
-
-        }
-        if (stack.isEmpty()) {
-            return "yes";
-        } else {
-            return "no";
+          if(c == '(' || c == '['){
+              stack.push(c);
+          }else if(c ==')'){
+              if(stack.isEmpty() || stack.peek() !='('){
+                  return "no";
+              }else{
+                  stack.pop();
+              }
+          }else if(c==']'){
+              if(stack.isEmpty() || stack.peek() !='['){
+                  return "no";
+              }else{
+                  stack.pop();
+              }
+          }
         }
 
+        if(stack.isEmpty()) return "yes";
 
+        return "no";
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        System.out.println(sb);
     }
 }
