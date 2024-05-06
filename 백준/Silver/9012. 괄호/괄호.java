@@ -1,42 +1,54 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Stack;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        Stack<Character> stack = new Stack<>();
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static Stack<Character> stack;
 
-        int N = sc.nextInt();
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        for (int i = 0; i < N; i++) {
-            String input = sc.next();
-            int size = input.length();
-            boolean TorF = true;
+        N = Integer.parseInt(br.readLine());
 
-            for (int j = 0; j < size; j++) {
-                char word = input.charAt(j);
+        for(int i = 0 ; i < N ; i++){
+            stack = new Stack<>();
 
-                if (word == '(') {
-                    stack.push(word);
-                } else if (stack.empty()) {
-                    TorF = false;
-                    break;
-                } else {
-                    stack.pop();
+            String line = br.readLine();
+
+            sb.append(process(line)).append("\n");
+        }
+    }
+
+    //실행
+    public static String process(String line) {
+        for(int i = 0 ; i < line.length() ; i++){
+            char c = line.charAt(i);
+
+            if(c == '('){
+                stack.push('(');
+            }else if(c == ')'){
+                if(stack.isEmpty() || stack.peek() != '('){
+                    return "NO";
                 }
 
+                stack.pop();
             }
-
-            if (TorF && stack.empty()) {
-                System.out.println("YES");
-            } else {
-                System.out.println("NO");
-
-            }
-            stack.clear();
-
-
         }
 
+        if(stack.isEmpty()) return "YES";
+        return "NO";
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        System.out.println(sb.toString());
     }
 }
