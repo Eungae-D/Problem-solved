@@ -1,48 +1,57 @@
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.Collections;
+import java.util.StringTokenizer;
 
 public class Main {
-    private static class Person{
+    static class Person implements Comparable<Person>{
         int age;
         String name;
 
-        public Person(int age, String name){
+        public Person(int age, String name) {
             this.age = age;
             this.name = name;
         }
-
         @Override
-        public String toString() {
-            return age+" "+name+"\n";
+        public int compareTo(Person o){
+            return this.age-o.age;
         }
     }
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        StringBuilder sb = new StringBuilder();
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static ArrayList<Person> list = new ArrayList<>();
 
-        int N = sc.nextInt();
-        Person[] p = new Person[N];
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
+        N = Integer.parseInt(br.readLine());
         for(int i = 0 ; i < N ; i++){
-            p[i] = new Person(sc.nextInt(),sc.next());
+            st = new StringTokenizer(br.readLine());
+            int age = Integer.parseInt(st.nextToken());
+            String name = st.nextToken();
+
+            list.add(new Person(age,name));
+        }
+    }
+
+    //실행
+    public static void process() {
+        Collections.sort(list);
+        for(Person p : list){
+            sb.append(p.age).append(" ").append(p.name).append("\n");
         }
 
-        Arrays.sort(p, new Comparator<Person>() {
-            @Override
-            public int compare(Person o1, Person o2) {
-                return o1.age-o2.age;
-            }
-        });
-
-        for(int i = 0 ; i < N ; i++){
-            sb.append(p[i]);
-        }
-        System.out.println(sb);
+        System.out.println(sb.toString());
+    }
 
 
-
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
