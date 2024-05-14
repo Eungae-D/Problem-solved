@@ -1,35 +1,54 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static long gcd,lcm;
+    private static long temp;
+    private static long A,B;
 
-        long gcd = Integer.parseInt(st.nextToken());
-        long lcm = Integer.parseInt(st.nextToken());
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
 
-        long product = lcm / gcd;
+        st = new StringTokenizer(br.readLine());
+        gcd = Long.parseLong(st.nextToken());
+        lcm = Long.parseLong(st.nextToken());
 
-        long answerA = gcd;
-        long answerB = lcm;
+        temp = gcd * lcm;
+        A = gcd;
+        B = lcm;
+    }
+    public static long foundGCD(long x, long y){
+        while(x%y != 0){
+            long temp = x%y;
+            x = y;
+            y = temp;
+        }
+        return y;
+    }
 
-        for (int i = 1; i * i <= product; i++) {
-            if (product % i == 0 && foundGCD(i, product / i) == 1) {
-                long a = gcd * i;
-                long b = gcd * (product / i);
-                if (a + b < answerA + answerB) {
-                    answerA = a;
-                    answerB = b;
+    //실행
+    public static void process() {
+        for(long i = gcd ; i*i <= temp ; i+=gcd){
+            if(temp%i == 0 && foundGCD(i,temp/i) == gcd){
+                long a = i;
+                long b = temp/i;
+                if(A+B>a+b){
+                    A = a;
+                    B = b;
                 }
             }
         }
-        System.out.println(answerA + " " + answerB);
+
+        System.out.println(A+" "+B);
     }
 
-    public static long foundGCD(long a, long b) {
-        return b == 0 ? a : foundGCD(b, a % b);
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
