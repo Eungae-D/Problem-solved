@@ -1,16 +1,30 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static BufferedReader br;
+    private static long N;
+    private static int ans = 1;
 
-        long n = sc.nextLong();
+    public static void input() throws Exception{
+        br = new BufferedReader(new InputStreamReader(System.in));
 
-        int ans = 1;
-        for(int i = 2; i*i<=n; i++){
+        N = Integer.parseInt(br.readLine());
+    }
+
+    public static void process() {
+        for(int i = 2 ; i * i <= N ; i++){
             ans++;
         }
+
         System.out.println(ans);
     }
 
+
+    public static void main(String[] args) throws Exception{
+        input();
+        process();
+    }
 }
