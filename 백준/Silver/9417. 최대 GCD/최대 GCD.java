@@ -1,42 +1,64 @@
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
-
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int T;
+    private static ArrayList<Integer> list;
+    private static int max;
 
-        ArrayList<Integer> list = new ArrayList<>();
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        int n = Integer.parseInt(sc.nextLine());
+        T = Integer.parseInt(br.readLine());
 
-        for(int i = 0 ; i < n ; i++){
+        for(int tc = 0 ; tc < T ; tc++){
+            String[] arr = br.readLine().split(" ");
 
-            list.clear();
-            String[] arr = sc.nextLine().split(" ");
+            list = new ArrayList<Integer>();
 
-            for(int j = 0 ; j < arr.length; j++){
-                list.add(Integer.parseInt(arr[j]));
+            for(int i = 0 ; i < arr.length ; i++){
+                list.add(Integer.parseInt(arr[i]));
             }
 
-            int max = Integer.MIN_VALUE;
-            for(int j = 0 ; j < list.size()-1; j++){
-                for(int k = j+1 ; k < list.size(); k++){
-                    //여기서 유클리드 호제법
-                    int a = list.get(j);
-                    int b = list.get(k);
-                   while (a%b!=0){
-                       int tmp = a%b;
-                       a = b;
-                       b = tmp;
-                   }
-                   if(max<b){
-                       max = b;
-                   }
-                }
-            }
-            System.out.println(max);
+            process();
         }
+    }
+    public static void gcd(int a, int b){
+        while (a%b != 0){
+            int temp = a%b;
+            a = b;
+            b = temp;
+        }
+
+        if(max<b){
+            max = b;
+        }
+    }
+
+    //실행
+    public static void process() {
+        max = Integer.MIN_VALUE;
+
+        for(int i = 0 ; i < list.size()-1; i++){
+            for(int j = i+1 ; j < list.size(); j++){
+                gcd(list.get(i),list.get(j));
+            }
+        }
+
+        sb.append(max).append("\n");
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        System.out.println(sb.toString());
     }
 }
