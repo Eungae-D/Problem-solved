@@ -1,41 +1,61 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N,M;
+    private static int[]arr;
+    private static int total = 0;
+    private static int count = 0;
 
-        int n = sc.nextInt();
-        int m = sc.nextInt();
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        int[] arr = new int[n+1];
+        st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
-        for(int i = 0; i<n; i++){
-            arr[i] = sc.nextInt();
+        arr = new int[N+1];
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < N ; i++){
+            arr[i] = Integer.parseInt(st.nextToken());
         }
+    }
 
+    //실행
+    public static void process() {
         int s = 0;
         int e = 0;
 
-        int total = arr[0];
-        int cnt = 0;
+        total = arr[0];
 
-        while (e<n){
-            if(total <m){
-                e+=1;
-                total += arr[e];
-            }else if(total > m){
+        while(s<N && e<N){
+            if(total < M){
+                e++;
+                total +=arr[e];
+            }else if(total > M){
                 total -=arr[s];
-                s += 1;
+                s++;
             }else{
-                cnt +=1;
-                total -= arr[s];
-                s +=1;
-                e+=1;
-                total += arr[e];
+                count++;
+                total -=arr[s];
+                s++;
+                e++;
+                total +=arr[e];
             }
         }
 
-        System.out.println(cnt);
+        System.out.println(count);
+    }
 
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
