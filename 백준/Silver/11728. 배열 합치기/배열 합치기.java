@@ -1,51 +1,73 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        StringBuilder sb = new StringBuilder();
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N,M;
+    private static int[] arrA,arrB;
 
-        int n = sc.nextInt();
-        int m = sc.nextInt();
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
+        st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
+        arrA = new int[N];
+        arrB = new int[M];
 
-        int[] arrA = new int[n];
-        int[] arrB = new int[m];
-
-        for(int i = 0 ; i < n; i++){
-            arrA[i] = sc.nextInt();
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < N ; i++){
+            arrA[i] = Integer.parseInt(st.nextToken());
         }
-        for(int i = 0 ; i < m; i++){
-            arrB[i] = sc.nextInt();
+
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < M ; i++){
+            arrB[i] = Integer.parseInt(st.nextToken());
         }
+    }
 
+    //실행
+    public static void process() {
+        int s = 0;
+        int e = 0;
 
-        int s = 0 ;
-        int e = 0 ;
-
-        while ( s<n && e<m){
-            if(arrA[s]<=arrB[e]){
+        while (s<N && e<M){
+            if(arrA[s] <= arrB[e]){
                 sb.append(arrA[s]+" ");
-                s +=1;
-            } else {
+                s++;
+            }else{
                 sb.append(arrB[e]+" ");
-                e +=1;
+                e++;
             }
         }
 
-        if(s==n){
-            for(int i = e ; i < m; i++){
+        if(s==N){
+            for(int i = e ; i < M; i++){
                 sb.append(arrB[i]+" ");
             }
-        }
-        if(e==m){
-            for(int j = s ; j < n; j++){
-                sb.append(arrA[j]+" ");
+        }else{
+            for(int i = s ; i < N ; i++){
+                sb.append(arrA[i]+" ");
             }
         }
+//        if(e==M){
+//            for(int i = s ; i < N ; i++){
+//                sb.append(arrA[i]+" ");
+//            }
+//        }
 
         System.out.println(sb);
+    }
 
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
