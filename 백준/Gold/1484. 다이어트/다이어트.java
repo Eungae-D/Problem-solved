@@ -1,25 +1,38 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        StringBuilder sb = new StringBuilder();
-        int g = sc.nextInt();
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int G;
 
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+
+        G = Integer.parseInt(br.readLine());
+    }
+
+    //실행
+    public static void process() {
         long s = 1;
         long e = 2;
 
-        
         boolean flag = false;
+
         while(e<50001){
-            long difValue = e*e-s*s;
+            long difS = s*s;
+            long difE = e*e;
 
-            if(difValue==g){
-                sb.append(e+"\n");
-                flag =true;
-            }
-
-            if(difValue<g){
+            if(difE-difS == G){
+                sb.append(e).append("\n");
+                flag = true;
+                s++;
+                e++;
+            }else if(difE-difS<G){
                 e++;
             }else{
                 s++;
@@ -31,7 +44,11 @@ public class Main {
         }else{
             System.out.println(-1);
         }
+    }
 
 
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
