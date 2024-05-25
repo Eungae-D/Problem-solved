@@ -1,52 +1,61 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static int[] arr;
+    private static long min = Long.MAX_VALUE;
+    private static int left,right;
 
-        int n = sc.nextInt();
-        int[] arr = new int[n];
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        for(int i = 0 ; i < arr.length; i++){
-            arr[i] = sc.nextInt();
+        N = Integer.parseInt(br.readLine());
+
+        arr = new int[N];
+
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < N; i++){
+            arr[i] = Integer.parseInt(st.nextToken());
         }
+    }
 
+    //실행
+    public static void process() {
         int s = 0;
-        int e = n-1;
+        int e = N-1;
 
-        int sum = Integer.MAX_VALUE;
+        while(s<e){
+            long sum = arr[s]+arr[e];
 
-        int liquidA = 0;
-        int liquidB = 0;
-
-
-        while (s!=e){
-
-
-            int tmp =arr[s]+arr[e];
-
-            if(tmp==0){
-                liquidA = arr[s];
-                liquidB = arr[e];
-                break;
+            if(Math.abs(sum) == 0){
+                sb.append(arr[s]+" "+arr[e]);
+                return;
+            }else if(Math.abs(sum)<min){
+                min = Math.abs(sum);
+                left = s;
+                right = e;
             }
 
-            if(Math.abs(tmp)<=sum){
-                
-                sum = Math.abs(tmp);
-
-                liquidA = arr[s];
-                liquidB = arr[e];
-            }
-
-            if(tmp<0){
+            if(sum<0){
                 s++;
             }else{
                 e--;
             }
-
         }
-        System.out.println(liquidA+" "+liquidB);
+        sb.append(arr[left]+" "+arr[right]);
+    }
 
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
+        System.out.println(sb.toString());
     }
 }
