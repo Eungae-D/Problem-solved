@@ -1,41 +1,69 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N,K;
+    private static int[] arr;
+    private static int count = 0;
+    private static int max = Integer.MIN_VALUE;
 
-        int n = sc.nextInt();
-        int k = sc.nextInt();
-        int[] arr = new int[n];
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        for(int i = 0 ; i < arr.length; i++){
-            arr[i] = sc.nextInt()%2;
+        st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+
+        arr = new int[N];
+        st= new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < N; i++){
+            arr[i] = Integer.parseInt(st.nextToken())%2;
         }
+    }
 
+    //실행
+    public static void process() {
         int s = 0;
         int e = 0;
 
-        int count = 0;
-        int max = Integer.MIN_VALUE;
-        while (e<n){
-            if(count<k){
-                if(arr[e]==1){
-                    count++;
-                }
-                e++;
-                max = Math.max(max,e-s-count);
-            }else if(arr[e]==0){
-                e++;
-                max = Math.max(max, e-s-count);
-            }else{
-                if(arr[s]==1){
-                    count--;
-                }
-                s++;
-            }
+        while(e<N){
+            if(count<K){
+                if(arr[e]==0){
+                    e++;
+                    max = Math.max(max,e-s-count);
 
+                }else{
+                    count++;
+                    e++;
+                    max = Math.max(max,e-s-count);
+                }
+            }else{
+                if(arr[e]==0){
+                    e++;
+                    max = Math.max(max,e-s-count);
+                }else{
+                    if(arr[s]==1){
+                        count--;
+                    }
+                    s++;
+                }
+
+            }
+//            System.out.println(s+" "+e+" "+count+" "+max);
         }
         System.out.println(max);
 
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
