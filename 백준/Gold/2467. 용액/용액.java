@@ -34,10 +34,7 @@ public class Main {
         while(s<e){
             long sum = arr[s]+arr[e];
 
-            if(Math.abs(sum) == 0){
-                sb.append(arr[s]+" "+arr[e]);
-                return;
-            }else if(Math.abs(sum)<min){
+            if(Math.abs(sum)<min){
                 min = Math.abs(sum);
                 left = s;
                 right = e;
@@ -45,8 +42,11 @@ public class Main {
 
             if(sum<0){
                 s++;
-            }else{
+            }else if(sum>0){
                 e--;
+            }else{
+                sb.append(arr[s]+" "+arr[e]);
+                return;
             }
         }
         sb.append(arr[left]+" "+arr[right]);
