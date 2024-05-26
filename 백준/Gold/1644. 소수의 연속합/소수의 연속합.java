@@ -1,63 +1,76 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static boolean[] isPrime = new boolean[4000010];
+    private static ArrayList<Integer> list = new ArrayList<Integer>();
+    public static void primeCheck(){
+        isPrime[0] = false;
+        isPrime[1] = false;
 
-        ArrayList<Integer> decimals =  new ArrayList<>();
-
-        int n = sc.nextInt();
-
-        boolean[] decimal = new boolean[n+1];
-
-        for(int i = 0 ; i < decimal.length;i++){
-            decimal[i]= true;
-        }
-
-        decimal[0] = decimal[1] = false;
-
-        for(int i = 2; i <=n; i++){
-
-            if(!decimal[i]) continue;
-
-            for(long j = (long)i * i ; j <=n ; j+=i){
-                if(decimal[(int)j]){
-                    decimal[(int)j]=false;
+        for(long i = 2 ; i <= 4000000 ; i++){
+            if(isPrime[(int)i]){
+                for(long j = i*i ; j <= 4000000 ; j+=i){
+                    isPrime[(int) j] = false;
                 }
             }
         }
 
-        for(int i = 2; i <=n; i++){
-            if(decimal[i]){
-                decimals.add(i);
-            }
+        for(int i = 2 ; i <=4000000 ; i++){
+            if(isPrime[i]) list.add(i);
         }
+    }
 
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+
+        N = Integer.parseInt(br.readLine());
+
+        Arrays.fill(isPrime,true);
+
+        primeCheck();
+//        System.out.println(list);
+    }
+
+    //실행
+    public static void process() {
         int s = 0;
         int e = 0;
-        int sum = 2;
-        int ans = 0;
-        int size = decimals.size();
+        int sum = list.get(0);
+        int count = 0;
+        int size = list.size();
 
-        while( s<size && e<size){
-            if(sum<n){
-                e++;
-                if(e>=size) break;
-                sum+=decimals.get(e);
-            }else if(sum==n){
-                ans++;
-                sum -=decimals.get(s);
+        while(s<=e){
+            if(sum==N){
+                count++;
+                sum-=list.get(s);
                 s++;
-            }else{
-                sum -=decimals.get(s);
+            }else if(sum < N){
+                e++;
+                if(e == size) break;
+                
+                sum+=list.get(e);
+            }else if(sum > N){
+                sum-=list.get(s);
                 s++;
             }
         }
+        System.out.println(count);
 
-        System.out.println(ans);
+    }
 
 
-
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
