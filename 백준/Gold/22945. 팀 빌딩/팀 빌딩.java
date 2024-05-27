@@ -1,26 +1,39 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
 
-        int n = sc.nextInt();
+    private static int N;
+    private static int[] arr;
 
-        int []arr = new int[n];
 
-        for(int i = 0 ; i < n; i++){
-            arr[i] = sc.nextInt();
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+        st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        arr = new int[N];
+
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < N; i++){
+            arr[i] = Integer.parseInt(st.nextToken());
         }
+    }
 
+    public static void process() {
         int s = 0;
-        int e = n-1;
-
+        int e = N-1;
         int min = Integer.MIN_VALUE;
 
         while(s<e){
             int person = e-s-1;
             int answer = person*Math.min(arr[s],arr[e]);
-            min=Math.max(min,answer);
+            min = Math.max(min,answer);
 
             if(arr[s]<arr[e]){
                 s++;
@@ -29,8 +42,12 @@ public class Main {
             }
         }
         System.out.println(min);
+    }
 
 
 
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
