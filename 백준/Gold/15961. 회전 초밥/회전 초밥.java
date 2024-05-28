@@ -1,48 +1,71 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N,D,K,C;
+    private static int[] arr;
+    private static int[] count;
 
-        int n = sc.nextInt();
-        int d = sc.nextInt();
-        int k = sc.nextInt();
-        int c = sc.nextInt();
 
-        int[]arr = new int[n+k-1];
-        int[]count = new int[d+1];
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        for(int i = 0 ; i<n; i++){
-            arr[i] = sc.nextInt();
+        st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        D = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+        C = Integer.parseInt(st.nextToken());
+
+        arr = new int[N+K-1];
+
+        for(int i = 0 ; i < N ; i++){
+            arr[i] = Integer.parseInt(br.readLine());
         }
 
-        for(int i = 0; i <k-1; i++){
-            arr[n++] = arr[i];
+        for(int i = 0 ; i < K-1 ; i++){
+            arr[N++] = arr[i];
         }
+//        System.out.println(Arrays.toString(arr));
 
-        int cnt = 0 ;
+        count = new int[D+1];
+    }
+
+    //실행
+    public static void process() {
+
+        int cnt = 0;
         int result = 0;
 
-        for(int i = 0 ; i < n; i++){
+        for(int i = 0 ; i < N ; i++){
+            if(++count[arr[i]]==1) cnt++;
 
-            if(++count[arr[i]]==1){
-                cnt++;
-            }
-
-            if(i>=k-1){
-                if(i>=k){
-                    if(--count[arr[i-k]]==0){
-                        cnt--;
-                    }
+            if(i>=K-1){
+                if(i>=K){
+                    if(--count[arr[i-K]]==0) cnt--;
                 }
-                if(count[c]==0){
-                    result = Math.max(cnt+1,result);
+
+                if(count[C] == 0){
+                    result = Math.max(result,cnt+1);
                 }else{
-                    result = Math.max(cnt,result);
+                    result = Math.max(result,cnt);
                 }
             }
-
         }
+
         System.out.println(result);
+
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
