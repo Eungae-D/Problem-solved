@@ -1,55 +1,72 @@
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private static StringBuilder sb;
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static int N;
+    private static long[] arr;
+    private static long min = Long.MAX_VALUE;
 
-        int n = sc.nextInt();
+    //입력
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
-        long[] arr = new long[n];
+        N = Integer.parseInt(br.readLine());
 
-        for(int i = 0 ; i < n ; i ++){
-            arr[i] = sc.nextLong();
+        arr = new long[N];
+
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < N ; i++){
+            arr[i] = Long.parseLong(st.nextToken());
         }
+
         Arrays.sort(arr);
 
-        long answer = Integer.MAX_VALUE;
+    }
 
-        for(int i = 0 ; i < n; i++){
-            for(int j = 0 ; j < n; j++){
-                if(i==j) continue;
+    //실행
+    public static void process() {
+        for(int i = 0 ; i < N ; i++){
+            for(int j = 0 ; j < N ; j++){
+                if(i == j ) continue;
 
-                long snow = arr[i]+arr[j];
+                long snow = arr[i] + arr[j];
 
                 int s = 0;
-                int e = n-1;
+                int e = N-1;
 
-                while (s<e){
-                    if(s==i||s==j){
+                while(s<e){
+                    if(s==i || s==j){
                         s++;
                         continue;
                     }
 
-                    if(e==i||e==j){
+                    if(e==i || e==j){
                         e--;
                         continue;
                     }
 
-                    answer = Math.min(answer,Math.abs(arr[i]+arr[j]-(arr[s]+arr[e])));
+                    min = Math.min(min,Math.abs((arr[i]+arr[j]) - (arr[s]+arr[e])));
 
                     if(arr[s]+arr[e]>arr[i]+arr[j]){
-                        e-=1;
+                        e--;
                     }else{
                         s++;
                     }
                 }
-
             }
         }
+        System.out.println(min);
+    }
 
-        System.out.println(answer);
 
+    public static void main(String[] args) throws Exception {
+        input();
+        process();
     }
 }
