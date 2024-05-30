@@ -1,49 +1,48 @@
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.sql.SQLOutput;
 import java.util.StringTokenizer;
 
 public class Main {
+    private static StringBuilder sb;
     private static BufferedReader br;
     private static StringTokenizer st;
-    private static StringBuilder sb;
-    private static char[] s;
-    private static long w,wh,whe,whee;
+    private static int N;
+    private static long W,WH,WHE,WHEE;
     private static long mod = 1000000007;
-    private static long result;
-    private static int n;
+    private static String line;
 
-    private static void input() throws Exception{
+
+
+    //입력
+    public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
-        st = new StringTokenizer(br.readLine());
         sb = new StringBuilder();
 
-        n = Integer.parseInt(st.nextToken());
-        s = new char[n];
+        N = Integer.parseInt(br.readLine());
 
-        st = new StringTokenizer(br.readLine());
-
-
+        line = br.readLine();
     }
 
-    private static void process() {
-        String s = st.nextToken();
-        for(int i = 0 ; i < n; i++){
-            if(s.charAt(i)=='W'){
-                w++;
-            }else if(s.charAt(i)=='H'){
-                wh+=w;
-            }else if(s.charAt(i)=='E'){
-                whee = 2*whee;
-                whee += whe;
-                whee%=mod;
-                whe += wh;
+    //실행
+    public static void process() {
+        for(int i = 0 ; i < N ; i++){
+            if(line.charAt(i) == 'W'){
+                W++;
+            }else if(line.charAt(i) == 'H'){
+                WH += W;
+            }else if(line.charAt(i) == 'E'){
+                WHEE *= 2;
+                WHEE += WHE;
+                WHEE %= mod;
+                WHE += WH;
             }
         }
-        System.out.println(whee);
+        System.out.println(WHEE);
     }
 
-    public static void main(String[] args) throws Exception{
+
+    public static void main(String[] args) throws Exception {
         input();
         process();
     }
