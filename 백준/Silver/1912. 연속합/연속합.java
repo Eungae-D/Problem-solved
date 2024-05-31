@@ -6,45 +6,40 @@ public class Main {
     private static StringBuilder sb;
     private static BufferedReader br;
     private static StringTokenizer st;
-    private static int n,max;
-    private static int[] arr;
-    private static int[] dp;
+    private static int N;
+    private static int[] arr,prefix;
+    private static int max = Integer.MIN_VALUE;
 
-    public static void input() throws Exception{
-        sb = new StringBuilder();
+
+    //입력
+    public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+
+        N = Integer.parseInt(br.readLine());
+
+        arr = new int[N+1];
+        prefix = new int[N+1];
+
         st = new StringTokenizer(br.readLine());
-
-        n = Integer.parseInt(st.nextToken());
-
-        st = new StringTokenizer(br.readLine());
-        arr = new int[n];
-        dp = new int[n];
-
-        for(int i = 0 ; i < n; i++){
+        for(int i = 1 ; i <= N ; i++){
             arr[i] = Integer.parseInt(st.nextToken());
         }
-
-        dp[0] = arr[0];
-
-        for(int i = 1; i<n; i++){
-            dp[i] = Math.max(dp[i-1]+arr[i],arr[i]);
-        }
-
-        max = Integer.MIN_VALUE;
-
-
     }
 
-    public static void process(){
-        for(int i = 0 ; i < dp.length; i++){
-            max = Math.max(max,dp[i]);
+    //실행
+    public static void process() {
+        for(int i = 1 ; i <= N ; i++){
+            prefix[i] = Math.max(prefix[i-1]+arr[i],arr[i]);
+
+            max = Math.max(max,prefix[i]);
         }
         System.out.println(max);
+
     }
 
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         input();
         process();
     }
