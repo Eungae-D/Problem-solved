@@ -1,52 +1,50 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
     private static BufferedReader br;
     private static StringTokenizer st;
     private static StringBuilder sb;
-    private static int n,max;
+    private static int N;
     private static int[][] arr;
+    private static int max = Integer.MIN_VALUE;
+
 
     public static void input() throws Exception{
         br = new BufferedReader(new InputStreamReader(System.in));
-        st = new StringTokenizer(br.readLine());
-        sb = new StringBuilder();
 
-        n = Integer.parseInt(st.nextToken());
+        N  = Integer.parseInt(br.readLine());
 
-        arr = new int[100001][3];
+        arr = new int[N+1][3];
+        for(int i = 1 ; i <= N ; i++){
+            String line = br.readLine();
+            char alphabet = line.charAt(0);
 
-        for(int i = 1; i <= n; i++){
-            st = new StringTokenizer(br.readLine());
-            int ch = st.nextToken().charAt(0);
-            if(ch=='P') {
+            if(alphabet == 'P'){
                 arr[i][0]++;
-            } else if (ch=='H') {
+            }else if(alphabet =='H'){
                 arr[i][1]++;
             }else{
                 arr[i][2]++;
             }
-            arr[i][0] += arr[i-1][0];
-            arr[i][1] += arr[i-1][1];
-            arr[i][2] += arr[i-1][2];
+
+            arr[i][0] +=arr[i-1][0];
+            arr[i][1] +=arr[i-1][1];
+            arr[i][2] +=arr[i-1][2];
         }
     }
 
-    public static void process() {
-        max = Math.max(arr[n][0], Math.max(arr[n][1],arr[n][2]));
-        for(int i = 1 ; i <=n;i++ ){
-            int left = Math.max(arr[i][0], Math.max(arr[i][1],arr[i][2]));
-            int right = Math.max(arr[n][0]-arr[i][0], Math.max(arr[n][1]-arr[i][1],arr[n][2]-arr[i][2]));
+    public static void process(){
+        max = Math.max(arr[N][0],Math.max(arr[N][1],arr[N][2]));
+        for(int i = 1 ; i <= N ; i++){
+            int l = Math.max(arr[i][0],Math.max(arr[i][1],arr[i][2]));
+            int r = Math.max(arr[N][0]-arr[i][0],Math.max(arr[N][1]-arr[i][1], arr[N][2]-arr[i][2]));
 
-            if(left+right>max){
-                max = left + right;
-            }
-
+            if(l+r>max) max = l+r;
         }
         System.out.println(max);
-
     }
 
     public static void main(String[] args) throws Exception{
