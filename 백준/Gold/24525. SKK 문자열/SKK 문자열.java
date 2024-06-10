@@ -1,37 +1,50 @@
-import java.util.Map;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    private static StringBuilder sb;
+    private static String S;
+    private static int[] arr,cnt;
+    private static TreeMap<Integer, Integer> map = new TreeMap<>();
+    private static int answer = -1;
 
-        String s = scanner.next();
-        int[] arr = new int[s.length() + 1];
-        int[] cnt = new int[s.length() + 1];
-        Map<Integer, Integer> minIdx = new TreeMap<>();
 
-        for (int i = 0; i < s.length(); i++) {
+    public static void input() throws Exception{
+        br = new BufferedReader(new InputStreamReader(System.in));
+        S = br.readLine();
+
+        arr = new int[S.length()+1];
+        cnt = new int[S.length()+1];
+
+        for(int i = 0 ; i < S.length() ; i++){
             int n = 0;
-            if (s.charAt(i) == 'S') n = 2;
-            if (s.charAt(i) == 'K') n = -1;
-            arr[i + 1] = arr[i] + n;
-            cnt[i + 1] = cnt[i] + (n == 0 ? 0 : 1);
+            if(S.charAt(i)=='S') n = 2;
+            if(S.charAt(i)=='K') n = -1;
+
+            arr[i+1] = arr[i]+n;
+            cnt[i+1] = cnt[i]+ (n==0 ? 0 : 1);
         }
-
-        int ans = -1;
-
-        for (int i = 0; i <= s.length(); i++) {
-            if (!minIdx.containsKey(arr[i])) {
-                minIdx.put(arr[i], i);
-            } else {
-                int mid = minIdx.get(arr[i]);
-                if (cnt[mid] == cnt[i]) continue;
-                ans = Math.max(ans, i - mid);
+    }
+    public static void process(){
+        for(int i = 0 ; i <= S.length(); i++){
+            if(!map.containsKey(arr[i])){
+                map.put(arr[i],i);
+            }else{
+                int compIdx = map.get(arr[i]);
+                if(cnt[compIdx] == cnt[i]) continue;
+                answer = Math.max(answer, i-compIdx);
             }
         }
+        System.out.println(answer);
+    }
 
-        System.out.println(ans);
-
+    public static void main(String[] args) throws Exception{
+        input();
+        process();
     }
 }
