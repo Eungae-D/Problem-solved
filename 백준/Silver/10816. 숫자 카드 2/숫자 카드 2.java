@@ -4,86 +4,87 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    private static BufferedReader br;
     private static StringBuilder sb;
+    private static BufferedReader br;
     private static StringTokenizer st;
-    private static int n,m;
-    private static int[] arr;
+    private static int N,M;
+    private static int[]arr;
 
-    public static void input() throws Exception{
+    //입력
+    public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
         sb = new StringBuilder();
+
+        N = Integer.parseInt(br.readLine());
+
+        arr = new int[N];
+
         st = new StringTokenizer(br.readLine());
-
-        n = Integer.parseInt(st.nextToken());
-
-        st = new StringTokenizer(br.readLine());
-
-        arr = new int[n];
-        for(int i = 0 ; i < n ; i++){
+        for(int i = 0 ; i < N ; i++){
             arr[i] = Integer.parseInt(st.nextToken());
         }
+
         Arrays.sort(arr);
 
-        st = new StringTokenizer(br.readLine());
-
-        m = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(br.readLine());
 
         st = new StringTokenizer(br.readLine());
-        for(int i = 0 ; i < m ; i++){
-            process(Integer.parseInt(st.nextToken()));
-        }
-
-
-
-    }
-
-    public static void process(int x){
-        int leftS = 0;
-        int leftE = n-1;
-
-        int rightS =0;
-        int rightE = n-1;
-
-        int leftIndex=-1;
-        int rightIndex=-1;
-
-        //leftIndex x를 포함하며 제일 왼쪽
-        while(leftS<=leftE){
-            int mid = (leftS+leftE)/2;
-            if(arr[mid]>x){
-                leftE = mid-1;
-            }else if(arr[mid]<x){
-                leftS = mid+1;
+        for(int i = 0 ; i < M ; i++){
+            int input = Integer.parseInt(st.nextToken());
+            int leftIndex = lowerBound(input);
+            int rightIndex = upperBound(input);
+            if (leftIndex == -1){
+                sb.append(0).append(" ");
             }else{
-                leftIndex = mid;
-                leftE= mid-1;
+                sb.append(rightIndex-leftIndex).append(" ");
             }
-        }
-
-        //rightIndex x를 포함하여 제일 오른쪽
-        while(rightS<=rightE){
-            int mid = (rightS+rightE)/2;
-            if(arr[mid]>x){
-                rightE = mid-1;
-            }else if(arr[mid]<x){
-                rightS = mid+1;
-            }else{
-                rightIndex = mid;
-                rightS= mid+1;
-            }
-        }
-
-
-        if(leftIndex==-1 && rightIndex==-1){
-            sb.append(0).append(" ");
-        }else{
-            sb.append(rightIndex-leftIndex+1).append(" ");
         }
     }
 
-    public static void main(String[] args) throws Exception{
+    //실행
+    public static int lowerBound(int input) {
+       int s = 0;
+       int e = N-1;
+       int ans = -1;
+
+       while(s<=e){
+           int mid = (s+e)/2;
+
+           if(arr[mid]>=input){
+               ans = mid;
+               e = mid-1;
+           }else{
+               s = mid+1;
+           }
+       }
+
+       return ans;
+    }
+
+    public static int upperBound(int input) {
+        int s = 0;
+        int e = N-1;
+        int ans = N;
+
+        while(s<=e){
+            int mid = (s+e)/2;
+
+            if(arr[mid]>input){
+                ans = mid;
+                e = mid-1;
+            }else{
+                s = mid+1;
+
+            }
+        }
+        return ans;
+    }
+
+
+
+
+    public static void main(String[] args) throws Exception {
         input();
-        System.out.println(sb);
+        System.out.println(sb.toString());
     }
 }
