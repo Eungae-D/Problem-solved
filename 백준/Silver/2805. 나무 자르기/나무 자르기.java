@@ -8,57 +8,57 @@ public class Main {
     private static BufferedReader br;
     private static StringTokenizer st;
     private static int N,M;
-    private static int []arr;
-    private static int answer;
-    private static int max;
+    private static int[] arr;
+    private static int max = -1;
+    private static long answer;
 
-    public static void input() throws Exception{
-        sb = new StringBuilder();
+    //입력
+    public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
-        st = new StringTokenizer(br.readLine());
+        sb = new StringBuilder();
 
+        st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
 
-        st = new StringTokenizer(br.readLine());
-
         arr = new int[N];
 
-        max = Integer.MIN_VALUE;
-
-        for(int i = 0; i <N ; i++){
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < N ; i++){
             arr[i] = Integer.parseInt(st.nextToken());
-            max = Math.max(max,arr[i]);
+            max = Math.max(max, arr[i]);
         }
-        Arrays.sort(arr);
 
     }
 
-    public static void process(){
+    //실행
+    public static void process() {
         long s = 0;
         long e = max;
+        while (s<=e){
+            long tree = 0;
 
-        while(s<=e){
             long mid = (s+e)/2;
-            long cnt = 0;
 
             for(int i = 0 ; i < N ; i++){
                 if(arr[i]>mid){
-                    cnt +=arr[i]-mid;
+                    tree+=arr[i]-mid;
                 }
             }
 
-            if(cnt>=M){
-                answer = (int)mid;
-                s=mid+1;
+            if(tree >= M){
+                answer = mid;
+                s = mid+1;
             }else{
-                e=mid-1;
+                e = mid-1;
             }
         }
-        System.out.println(answer);
 
+        System.out.println(answer);
     }
-    public static void main(String[] args) throws Exception{
+
+
+    public static void main(String[] args) throws Exception {
         input();
         process();
     }
