@@ -4,44 +4,57 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    private static BufferedReader br;
     private static StringBuilder sb;
+    private static BufferedReader br;
     private static StringTokenizer st;
+    private static int T,N,ans;
+    private static int[] arr;
 
-    private static int T,N, ans;
-    private static int[]arr;
-
-    public static void input() throws Exception{
+    //입력
+    public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
-        st = new StringTokenizer(br.readLine());
         sb = new StringBuilder();
 
-        T = Integer.parseInt(st.nextToken());
+        T = Integer.parseInt(br.readLine());
 
         for(int tc = 0 ; tc<T ; tc++){
-            st = new StringTokenizer(br.readLine());
-
-            N = Integer.parseInt(st.nextToken());
+            N = Integer.parseInt(br.readLine());
 
             arr = new int[N];
 
             st = new StringTokenizer(br.readLine());
-            for(int i = 0 ; i < N; i++){
+            for(int i = 0 ; i < N ; i++){
                 arr[i] = Integer.parseInt(st.nextToken());
             }
             process();
         }
     }
+    public static boolean binSearch(int s, int e, int target){
+        while(s<=e){
+            int mid = (s+e)/2;
 
+            if(arr[mid] == target){
+                return true;
+            }
 
+            if(arr[mid]<target){
+                s = mid+1;
+            }else{
+                e = mid-1;
+            }
+        }
+        return false;
+    }
 
-    public static void process(){
+    //실행
+    public static void process() {
         Arrays.sort(arr);
-        ans=0;
 
-        for(int i = 0 ; i < N-2;i++){ //a점
-            for(int j = i+1; j<N-1; j++){ //b 점
-                int dist = Math.abs(arr[j]-arr[i]); //b-a의 거리
+        ans = 0;
+
+        for(int i = 0 ; i < N-2 ; i++){
+            for(int j = i+1 ; j < N-1; j++){
+                int dist = arr[j]-arr[i];
 
                 if(binSearch(j+1,N-1,arr[j]+dist)){
                     ans++;
@@ -49,30 +62,11 @@ public class Main {
             }
         }
         sb.append(ans).append("\n");
+
     }
 
 
-    public static boolean binSearch(int s, int e, int target){
-        while(s<=e){
-            int mid = (s+e)/2;
-
-            if(arr[mid]==target){
-                return true;
-            }
-
-            if(arr[mid]<target){
-                s = mid+1;
-            }else{
-                e =mid-1;
-            }
-        }
-        return false;
-    }
-
-
-
-
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         input();
         System.out.println(sb);
     }
