@@ -1,91 +1,68 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Main {
-
-    //2번 템플릿 (순열)
+    private static StringBuilder sb;
     private static BufferedReader br;
     private static StringTokenizer st;
-    private static StringBuilder ans;
-    private static int K;
-    private static char[] sign;
+    private static int N;
+    private static String[] list;
     private static int[] arr;
-    private static boolean[] visited;
-    private static String max = "";
-    private static String min = "9999999999";
+    private static boolean[] visited = new boolean[10];
+    private static ArrayList<String> answer = new ArrayList<>();
 
+    //입력
     public static void input() throws Exception {
-        br= new BufferedReader(new InputStreamReader(System.in));
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
         st = new StringTokenizer(br.readLine());
 
-        ans = new StringBuilder();
-
-        K = Integer.parseInt(st.nextToken());
-        sign = new char[K];
-        arr = new int[K+1];
-        visited = new boolean[10];
-
-        st = new StringTokenizer(br.readLine());
-
-        for(int i = 0 ; i < K; i++){
-            sign[i] = st.nextToken().charAt(0);
-        }
-
+        N = Integer.parseInt(st.nextToken());
+        list = br.readLine().split(" ");
+        arr = new int[N+1];
     }
-
-    public static void process(){
-        recur(0);
-    }
-
     public static void recur(int cur){
-        if(cur == K+1){
-            //여기서 조건 만족하는지 확인
-            int count = 0;
-            for(int i = 1 ; i <= K; i++){
-                char temp = sign[i-1];
-                if(temp == '<'){
-                    if(arr[i-1]<arr[i]){
-                        count++;
-                    }
-                }else{
-                    if(arr[i-1]>arr[i]){
-                        count++;
-                    }
-                }
+        if(cur == N+1){
+            String tmp = "";
+            for(int i = 0 ; i < arr.length ; i++){
+                tmp+=arr[i];
             }
-
-            if(count==K){
-                StringBuilder sb = new StringBuilder();
-                for(int i = 0 ; i < K+1; i++){
-                    sb.append(arr[i]);
-                }
-
-                String current = sb.toString();
-                if(current.compareTo(min)<0) min = current;
-                if(current.compareTo(max)>0) max = current;
-
-
-            }
-
-
+            answer.add(tmp);
             return;
         }
 
-        for(int i = 0 ; i < 10; i++){
+        for(int i = 0 ; i < 10 ; i++){
             if(visited[i]) continue;
+
+            if(cur>0){
+                if(list[cur-1].equals(">")){
+                    if(i > arr[cur-1]) continue;
+                }else if(list[cur-1].equals("<")){
+                    if(i < arr[cur-1]) continue;
+                }
+            }
+
             visited[i] = true;
             arr[cur] = i;
             recur(cur+1);
             visited[i] = false;
         }
-    };
 
-    public static void main(String[] args) throws Exception{
+
+    }
+
+    //실행
+    public static void process() {
+        recur(0);
+        System.out.println(answer.get(answer.size()-1));
+        System.out.println(answer.get(0));
+    }
+
+
+    public static void main(String[] args) throws Exception {
         input();
         process();
-        System.out.println(max);
-        System.out.println(min);
-
     }
 }
