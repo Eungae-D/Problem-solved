@@ -3,14 +3,16 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+    private static StringBuilder sb;
     private static BufferedReader br;
     private static StringTokenizer st;
-    private static StringBuilder sb;
-    private static int[]arr;
-    private static int[]ans;
-    private static int tc;
     private static int N;
+    private static int size;
+    private static int[] variables;
+    private static int[] arr;
 
+
+    //입력
     public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
         sb = new StringBuilder();
@@ -20,46 +22,44 @@ public class Main {
         while (true){
             st = new StringTokenizer(br.readLine());
 
-            tc = Integer.parseInt(st.nextToken());
+            size = Integer.parseInt(st.nextToken());
 
-            if(tc==0){
-                break;
-            }
+            if(size == 0) break;
 
-            arr= new int[tc];
-            ans = new int[N];
+            variables = new int[size];
+            arr = new int[N];
 
-            for(int i = 0 ; i < tc; i++){
-                arr[i] = Integer.parseInt(st.nextToken());
+            for(int i = 0 ; i < size; i++){
+                variables[i] = Integer.parseInt(st.nextToken());
             }
 
             process();
             sb.append("\n");
         }
-    }
 
-    public static void process(){
-        recur(0,0);
     }
-
     public static void recur(int cur, int start){
-        if(cur==N){
-            for(int i = 0; i < N ; i++){
-                sb.append(ans[i]+" ");
+        if(cur == N){
+            for(int i = 0 ; i < N ; i++){
+                sb.append(arr[i]).append(" ");
             }
             sb.append("\n");
             return;
         }
 
-        for(int i  = start; i< tc; i++){
-            ans[cur] = arr[i];
+        for(int i = start ; i < size ; i++){
+            arr[cur] = variables[i];
             recur(cur+1,i+1);
         }
     }
 
+    //실행
+    public static void process() {
+        recur(0,0);
+    }
 
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         input();
         System.out.println(sb);
     }
