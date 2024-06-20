@@ -11,25 +11,18 @@ public class Main {
     private static boolean[] visited = new boolean[10];
     private static int answer = Integer.MAX_VALUE;
 
-
+    //입력
     public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
         sb = new StringBuilder();
 
         for(int i = 0 ; i < 3 ; i++){
             st = new StringTokenizer(br.readLine());
-            for(int j = 0; j < 3;  j++){
+            for(int j = 0 ; j < 3 ; j++){
                 arr[i][j] = Integer.parseInt(st.nextToken());
             }
         }
-
     }
-
-    public static void process() {
-        recur(0,0,0);
-        System.out.println(answer);
-    }
-
     public static boolean check(){
         int total;
 
@@ -53,9 +46,9 @@ public class Main {
         if(arr2[0][2] + arr2[1][1] + arr2[2][0] != 15) return false;
         return true;
     }
-
+    
     public static void recur(int x, int y, int price){
-        if(y==3){
+        if(y == 3){
             x++;
             y = 0;
         }
@@ -64,19 +57,25 @@ public class Main {
             if(!check()) return;
 
             answer = Math.min(answer,price);
-
             return;
         }
 
-        for(int i = 1; i < 10; i++){
+        for(int i = 1 ; i < 10 ; i++){
             if(visited[i]) continue;
 
             visited[i] = true;
             arr2[x][y] = i;
-            recur(x,y+1, price+Math.abs(arr[x][y]-i));
+            recur(x, y+1, price + Math.abs(arr[x][y] - i));
             visited[i] = false;
         }
     }
+
+    //실행
+    public static void process() {
+        recur(0,0,0);
+        System.out.println(answer);
+    }
+
 
     public static void main(String[] args) throws Exception {
         input();
