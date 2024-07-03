@@ -3,15 +3,17 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+    private static StringBuilder sb;
     private static BufferedReader br;
     private static StringTokenizer st;
     private static int N, K;
     private static int[][] subjects;
-    private static int[][] memo;
+    private static int[][] dp;
 
+    //입력
     public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
-
+        sb = new StringBuilder();
         st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
@@ -23,31 +25,27 @@ public class Main {
             subjects[i][1] = Integer.parseInt(st.nextToken());
         }
 
-        memo = new int[K][N + 1];
-        for (int i = 0; i < K; i++) {
-            for (int j = 0; j <= N; j++) {
-                memo[i][j] = -1;
+        dp = new int[K+1][N+1];
+    }
+
+
+    //실행
+    public static void process() {
+        for(int i = K-1; i >= 0 ; i--){
+            int importance = subjects[i][0];
+            int time = subjects[i][1];
+
+            for(int j = N ; j>=0 ; j--){
+                if(j >= time){
+                    dp[i][j] = Math.max(dp[i+1][j],dp[i+1][j-time] + importance);
+                }else{
+                    dp[i][j] = dp[i+1][j];
+                }
             }
         }
+        System.out.println(dp[0][N]);
     }
 
-    public static int recur(int cur, int remainingTime) {
-        if(remainingTime < 0) return Integer.MIN_VALUE;
-        if (cur == K) return 0;
-
-        if (memo[cur][remainingTime] != -1) {
-            return memo[cur][remainingTime];
-        }
-        int maxImportance = Math.max(recur(cur + 1, remainingTime),recur(cur + 1, remainingTime - subjects[cur][1]) + subjects[cur][0]);
-
-        memo[cur][remainingTime] = maxImportance;
-        return maxImportance;
-    }
-
-    public static void process() {
-        int result = recur(0, N);
-        System.out.println(result);
-    }
 
     public static void main(String[] args) throws Exception {
         input();
