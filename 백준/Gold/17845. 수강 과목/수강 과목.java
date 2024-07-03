@@ -31,22 +31,16 @@ public class Main {
         }
     }
 
-    public static int recur(int index, int remainingTime) {
-        if (index == K || remainingTime == 0) {
-            return 0;
-        }
+    public static int recur(int cur, int remainingTime) {
+        if(remainingTime < 0) return Integer.MIN_VALUE;
+        if (cur == K) return 0;
 
-        if (memo[index][remainingTime] != -1) {
-            return memo[index][remainingTime];
+        if (memo[cur][remainingTime] != -1) {
+            return memo[cur][remainingTime];
         }
-        //선택 x
-        int maxImportance = recur(index + 1, remainingTime);
-        //선택 o
-        if (remainingTime >= subjects[index][1]) {
-            maxImportance = Math.max(maxImportance, recur(index + 1, remainingTime - subjects[index][1]) + subjects[index][0]);
-        }
+        int maxImportance = Math.max(recur(cur + 1, remainingTime),recur(cur + 1, remainingTime - subjects[cur][1]) + subjects[cur][0]);
 
-        memo[index][remainingTime] = maxImportance;
+        memo[cur][remainingTime] = maxImportance;
         return maxImportance;
     }
 
