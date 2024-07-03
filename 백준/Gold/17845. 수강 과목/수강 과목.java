@@ -36,7 +36,7 @@ public class Main {
             int time = subjects[i][1];
 
             for(int j = N ; j>=0 ; j--){
-                if(j >= time){
+                if(j-time >= 0){
                     dp[i][j] = Math.max(dp[i+1][j],dp[i+1][j-time] + importance);
                 }else{
                     dp[i][j] = dp[i+1][j];
