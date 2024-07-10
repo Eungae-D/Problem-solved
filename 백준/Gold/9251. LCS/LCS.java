@@ -1,15 +1,21 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.sql.SQLOutput;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
+    private static StringBuilder sb;
     private static BufferedReader br;
+    private static StringTokenizer st;
     private static char[] left, right;
     private static int lineLength, lineTwoLength;
     private static int[][] dp;
 
-
+    //입력
     public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
 
         String line = br.readLine();
         lineLength = line.length();
@@ -30,6 +36,7 @@ public class Main {
 
     }
 
+    //실행
     public static void process() {
         for(int i = 1; i <= lineLength; i++){
             for(int j = 1; j <= lineTwoLength; j++){
@@ -40,12 +47,14 @@ public class Main {
                 }
             }
         }
+//        System.out.println(Arrays.deepToString(dp));
+        System.out.println(dp[lineLength][lineTwoLength]);
+
     }
 
 
     public static void main(String[] args) throws Exception {
         input();
         process();
-        System.out.println(dp[lineLength][lineTwoLength]);
     }
 }
