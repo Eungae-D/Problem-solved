@@ -15,7 +15,7 @@ public class Main {
         sb = new StringBuilder();
 
         N = Integer.parseInt(br.readLine());
-        
+
         for(int i = 0 ; i < N ; i++){
             long input = Long.parseLong(br.readLine());
             sum += input;
@@ -29,11 +29,7 @@ public class Main {
         if(sum<=max){
             System.out.println(max-sum);
         }else{
-            if(sum%2!=max%2){
-                System.out.println(1);
-            }else{
-                System.out.println(0);
-            }
+            System.out.println((sum+max)%2);
         }
     }
 
