@@ -1,8 +1,7 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     private static StringBuilder sb;
@@ -39,9 +38,15 @@ public class Main {
 
         visited[cur] = true;
 
-        return dfs(adj[cur].get(0),target);
+        for(int nxt : adj[cur]){
 
+            return dfs(nxt,target);
+
+        }
+        return false;
     }
+
+    //        return dfs(adj[cur].get(0),target);
 
     public static void process() {
         for(int i = 1 ; i <N+1; i++){
