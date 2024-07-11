@@ -36,6 +36,7 @@ public class Main {
                 return o1[1]-o2[1];
             }
         });
+//        System.out.println(Arrays.deepToString(arr));
     }
 
     public static void process() {
