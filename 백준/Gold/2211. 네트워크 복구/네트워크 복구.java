@@ -43,6 +43,7 @@ public class Main {
         dist = new int[N+1];
         info = new int[N+1];
 
+
         for(int i = 1 ; i <=N ; i++){
             list[i] = new ArrayList<>();
         }
@@ -64,7 +65,6 @@ public class Main {
         dist[1] = 0;
 
         while (!que.isEmpty()){
-
             Node cur = que.poll();
 
             if(dist[cur.v] < cur.w) continue;
@@ -77,6 +77,7 @@ public class Main {
                     dist[nxt] = nd;
                     info[nxt] = cur.v;
                     que.add(new Node(nxt,nd));
+//                    System.out.println(nxt+" "+nd);
                     }
                 }
         }
@@ -92,6 +93,7 @@ public class Main {
         }
         System.out.println(count);
         System.out.println(sb.toString());
+//        System.out.println(Arrays.toString(dist));
     }
 
 
