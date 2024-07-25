@@ -1,62 +1,56 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
     private static StringBuilder sb;
     private static BufferedReader br;
     private static StringTokenizer st;
-    private static ArrayList<Integer>[] adj;
-    private static boolean[] visited;
-    private static int n,e;
-    private static int ans = 0;
+    private static int N,E;
+    private static int[] parents;
+    private static int[] size;
 
-
-    public static void input() throws Exception {
-        br = new BufferedReader(new InputStreamReader(System.in));
-        sb = new StringBuilder();
-
-        n = Integer.parseInt(br.readLine());
-        e = Integer.parseInt(br.readLine());
-
-        adj = new ArrayList[n+1];
-        visited = new boolean[n+1];
-
-        for(int i = 1 ; i < n+1; i++){
-            adj[i] = new ArrayList<>();
-        }
-
-        for(int i = 0 ; i < e; i++){
-            st = new StringTokenizer(br.readLine());
-
-            int startV = Integer.parseInt(st.nextToken());
-            int endV = Integer.parseInt(st.nextToken());
-
-            adj[startV].add(endV);
-            adj[endV].add(startV);
+    public static int find(int x){
+        if(parents[x]==x){
+            return x;
+        }else {
+            parents[x] = find(parents[x]);
+            return parents[x];
         }
     }
 
-    public static void dfs(int cur){
-        visited[cur] = true;
+    public static void union(int s, int e){
+        s = find(s);
+        e = find(e);
 
-        ans += 1;
+        if(s == e) return;
 
-        for(int nxt : adj[cur]){
-            if(visited[nxt]) continue;
-
-            dfs(nxt);
-        }
-    }
-
-    public static void process() {
-        dfs(1);
-        System.out.println(ans-1);
+        parents[e] = s;
+        size[s] += size[e];
     }
 
     public static void main(String[] args) throws Exception {
-        input();
-        process();
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+
+        N = Integer.parseInt(br.readLine());
+        E = Integer.parseInt(br.readLine());
+
+        parents = new int[110];
+        for(int i = 0 ; i < 110 ; i++){
+            parents[i] = i;
+        }
+        size = new int[110];
+        Arrays.fill(size, 1);
+
+        for(int i = 0 ; i < E ; i++){
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+
+            union(s,e);
+        }
+        System.out.println(size[find(1)]-1);
     }
 }
