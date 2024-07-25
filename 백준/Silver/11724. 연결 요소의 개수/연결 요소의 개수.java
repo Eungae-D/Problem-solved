@@ -1,70 +1,61 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 public class Main {
     private static StringBuilder sb;
     private static BufferedReader br;
     private static StringTokenizer st;
-    private static int ans;
-    private static int n,m;
-    private static ArrayList<Integer>[] adj;
-    private static boolean[] visited;
+    private static int N,M;
+    private static int[] parents;
+    private static int answer;
 
-
-    public static void input() throws Exception {
-        br = new BufferedReader(new InputStreamReader(System.in));
-        sb = new StringBuilder();
-        st = new StringTokenizer(br.readLine());
-
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-
-        adj = new ArrayList[n+1];
-        visited = new boolean[n+1];
-
-        for(int i = 1 ; i < n+1; i++){
-            adj[i] = new ArrayList<>();
-        }
-
-
-
-        for(int i = 0 ; i < m ; i++){
-            st = new StringTokenizer(br.readLine());
-
-            int startV = Integer.parseInt(st.nextToken());
-            int endV = Integer.parseInt(st.nextToken());
-
-            adj[startV].add(endV);
-            adj[endV].add(startV);
-        }
-
-    }
-    public static void dfs(int cur){
-        visited[cur] = true;
-
-        for(int nxt : adj[cur]){
-            if(visited[nxt]) continue;
-
-            dfs(nxt);
+    public static int find(int x){
+        if(parents[x] == x){
+            return x;
+        }else{
+            parents[x] = find(parents[x]);
+            return parents[x];
         }
     }
 
-    public static void process() {
-        for(int i = 1; i < n+1; i++){
-            if(visited[i]) continue;
+    public static void union(int s, int e){
+        s = find(s);
+        e = find(e);
 
-            dfs(i);
-            ans++;
-        }
-        System.out.println(ans);
+        if(s==e) return;
 
+        parents[e] = s;
     }
 
 
     public static void main(String[] args) throws Exception {
-        input();
-        process();
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+        st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+
+        parents = new int[N+1];
+        for(int i = 0 ; i < N+1 ; i++){
+            parents[i] = i;
+        }
+
+        for(int i = 0 ; i < M ; i++){
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+
+            union(s,e);
+        }
+
+        TreeSet<Integer> uniqueParents = new TreeSet<>();
+        for(int i = 1 ; i < N+1 ; i++){
+            uniqueParents.add(find(i));
+        }
+
+        System.out.println(uniqueParents.size());
     }
 }
