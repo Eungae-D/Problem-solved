@@ -5,11 +5,17 @@ class Solution {
         int answer = 0;
         
         for (int i = 0; i < length; i++) {
-            String temp = t.substring(i, i + p.length());   
             
-            if (Long.parseLong(temp) <= pNum) {
-            	answer++;
+            String temp = "";
+            for(int j = 0 ; j < p.length(); j++){
+                temp+=String.valueOf(t.charAt(i+j));
             }
+            
+            if(Long.parseLong(temp)<=pNum){
+                answer++;
+            }
+            
+            
         }
         return answer;
     }
