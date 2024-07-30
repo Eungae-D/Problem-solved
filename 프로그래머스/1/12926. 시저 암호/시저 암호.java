@@ -11,13 +11,13 @@ class Solution {
             
             if(ch>='a'&&ch<='z'){
                 if(ch+n >'z'){
-                    answer+=(char)(ch-26+n);
+                    answer+=(char)('a'+(ch-'a'+n)%26);
                 }else{
                     answer+=(char)(ch+n);
                 }
             }else if(ch>='A' && ch <='Z'){
                 if(ch+n >'Z'){
-                    answer+=(char)(ch-26+n);
+                    answer+=(char)('A'+(ch-'A'+n)%26);
                 }else{
                     answer+=(char)(ch+n);                }
             }
