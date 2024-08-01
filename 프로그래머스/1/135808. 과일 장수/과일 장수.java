@@ -12,6 +12,8 @@ class Solution {
         }
         
         
+        Integer[] scoreArray = Arrays.stream(score).boxed().toArray(Integer[]::new);
+        
         
         return answer;
     }
