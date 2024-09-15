@@ -18,14 +18,23 @@ public class Main {
         isPrime[0] = false;
         isPrime[1] = false;
 
-        for(int i = 2; i * i < B+1 ; i++){
-            if(!isPrime[i]) continue;
+        for(long i = 2; i < B+1 ; i++){
+            if(!isPrime[(int)i]) continue;
 
-            for(int j = i*i ; j < B+1 ; j+=i){
-                isPrime[j] = false;
+            for(long j = i*i ; j < B+1  ; j+=i){
+
+                isPrime[(int)j] = false;
             }
         }
 
+//        for(int i = 2; i < B+1 ; i++){
+//            if(!isPrime[i]) continue;
+//
+//            for(int j = i*i ; j < B+1  ; j+=i){
+//
+//                isPrime[j] = false;
+//            }
+//        }
     }
 
     //입력
@@ -34,8 +43,8 @@ public class Main {
         sb = new StringBuilder();
 
         st = new StringTokenizer(br.readLine());
-        A = Integer.parseInt(st.nextToken());
-        B = Integer.parseInt(st.nextToken());
+        A = Integer.valueOf(st.nextToken());
+        B = Integer.valueOf(st.nextToken());
         D = st.nextToken();
 
         isPrime = new boolean[B+1];
@@ -50,6 +59,7 @@ public class Main {
                 count++;
             }
         }
+
 
         System.out.println(count);
     }
