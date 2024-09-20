@@ -67,7 +67,7 @@ public class Main {
         while (!que.isEmpty()){
             Node cur = que.poll();
 
-            if(dist[cur.v] < cur.w) continue;
+//            if(dist[cur.v] < cur.w) continue;
 
             for(Node node : list[cur.v]){
                 int nxt = node.v;
