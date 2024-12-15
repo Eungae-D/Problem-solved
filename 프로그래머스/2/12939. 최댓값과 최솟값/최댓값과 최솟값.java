@@ -8,15 +8,16 @@ class Solution {
     private static int min = Integer.MAX_VALUE;
     
     public String solution(String s) {
-    
-        
         arr = s.split(" ");
-        for(int i = 0 ; i < arr.length; i++){
+        
+        for(int i = 0 ; i < arr.length ; i++){
             int temp = Integer.valueOf(arr[i]);
-            max = Math.max(max, temp);
-            min = Math.min(min, temp);
+            max = Math.max(max,temp);
+            min = Math.min(min,temp);
         }
         
         return min+" "+max;
     }
+    
+    
 }
