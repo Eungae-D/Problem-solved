@@ -5,19 +5,18 @@ class Solution {
         int s = 0;
         int e = 0;
         
-        while(e <= n){
+        while(e<=n){
             if(sum==n){
                 answer++;
                 e++;
                 sum+=e;
-            }else if(sum < n){
+            }else if(sum<n){
                 e++;
                 sum+=e;
             }else{
-                sum -=s;
+                sum-=s;
                 s++;
             }
-
         }
         return answer;
     }
