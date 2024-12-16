@@ -1,17 +1,17 @@
 import java.io.*;
 import java.util.*;
 
-class Solution {
-    private static String[]arr;
+class Solution{
     private static int size = 0;
     private static Stack<Character> stack = new Stack<>();
     
     boolean solution(String s) {
-        
         size = s.length();
         
+        
         for(int i = 0 ; i < size ; i++){
-           char temp = s.charAt(i);
+            char temp = s.charAt(i);
+            
             if(temp == '('){
                 stack.push(temp);
             }else{
@@ -28,5 +28,8 @@ class Solution {
         }else{
             return false;
         }
+        
+        
     }
+    
 }
