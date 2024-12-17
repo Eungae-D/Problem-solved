@@ -3,20 +3,21 @@ class Solution {
         int[] answer = new int[2];
         int sum = brown+yellow;
         
-        for(int i = 3 ; i*i <= sum ; i++){
-            int j = sum/i;
+        for(int i = 3 ; i <= sum ; i++){
+            int col = i;
+            int row = sum/col;
             
-            if(sum%i==0 && j >=3 ){
-                int center = (j-2)*(i-2);
+            if(sum%i==0 && row >= 3){
+                int center = (col-2)*(row-2);
                 
                 if(center == yellow){
-                    answer[0] = j;
-                    answer[1] = i;
+                    answer[0] = row;
+                    answer[1] = col;
                     return answer;
                 }
             }
-            
         }
+        
         return answer;
     }
 }
