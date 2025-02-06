@@ -37,7 +37,7 @@ public class Main {
             int e = N-2;
             temp = K-1;
             while(temp>0){
-                if(temp != 1) {
+                if(temp / 2 != 0) {
 
                     answer+=arr[e]-arr[s];
                     e--;
