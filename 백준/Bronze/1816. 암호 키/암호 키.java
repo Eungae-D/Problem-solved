@@ -33,11 +33,7 @@ public class Main {
     }
 
     public static void process(){
-        if(isPrime){
-            sb.append("YES").append("\n");
-        }else{
-            sb.append("NO").append("\n");
-        }
+        sb.append(isPrime ? "YES" : "NO").append("\n");
     }
 
 
