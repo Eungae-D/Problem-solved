@@ -14,21 +14,21 @@ public class Main {
 
         line = br.readLine();
         N = line.length();
-        arr = new int[N+1];
+        arr = new int[N];
 
-        for(int i = 1 ; i <= N ; i++){
-            arr[i] = line.charAt(i-1)-'0';
+        for(int i = 0 ; i < N ; i++){
+            arr[i] = line.charAt(i)-'0';
         }
 
         prefix = new int[N+1];
         for(int i = 1 ; i <= N ; i++){
-            prefix[i] = prefix[i-1]+arr[i];
+            prefix[i] = prefix[i-1]+arr[i-1];
         }
 
     }
 
     public static void process(){
-        for(int s = 0 ; s <= N ; s++){
+        for(int s = 0 ; s < N ; s++){
             for(int e = 2 ; e+s <= N ; e+=2){
                 int mid = s+e/2;
 
