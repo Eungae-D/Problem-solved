@@ -1,50 +1,50 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    private static StringBuilder sb;
     private static BufferedReader br;
+    private static StringBuilder sb;
     private static StringTokenizer st;
-    private static int T;
+    private static int N;
     private static ArrayList<Integer> list;
     private static int max;
 
-    //입력
     public static void input() throws Exception {
         br = new BufferedReader(new InputStreamReader(System.in));
+        st = new StringTokenizer(br.readLine());
         sb = new StringBuilder();
 
-        T = Integer.parseInt(br.readLine());
+        N = Integer.parseInt(st.nextToken());
 
-        for(int tc = 0 ; tc < T ; tc++){
+        for(int i = 0 ; i < N; i++){
             String[] arr = br.readLine().split(" ");
 
-            list = new ArrayList<Integer>();
+            list = new ArrayList<>();
 
-            for(int i = 0 ; i < arr.length ; i++){
-                list.add(Integer.parseInt(arr[i]));
+            for(int j = 0 ; j < arr.length ;  j++){
+                list.add(Integer.valueOf(arr[j]));
             }
 
             process();
         }
     }
     public static void gcd(int a, int b){
-        while (a%b != 0){
-            int temp = a%b;
+        int temp = 0;
+
+        while(a%b!=0){
+            temp = a%b;
             a = b;
             b = temp;
         }
 
-        if(max<b){
+        if(max < b){
             max = b;
         }
     }
 
-    //실행
-    public static void process() {
+    public static void process(){
         max = Integer.MIN_VALUE;
 
         for(int i = 0 ; i < list.size()-1; i++){
@@ -56,9 +56,8 @@ public class Main {
         sb.append(max).append("\n");
     }
 
-
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception{
         input();
-        System.out.println(sb.toString());
+        System.out.println(sb);
     }
 }
