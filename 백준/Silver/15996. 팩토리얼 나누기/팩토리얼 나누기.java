@@ -3,20 +3,30 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) throws Exception{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private static BufferedReader br;
+    private static StringBuilder sb;
+    private static StringTokenizer st;
+    private static long N,A;
+    private static int answer = 0;
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        st = new StringTokenizer(br.readLine());
+        sb = new StringBuilder();
 
+        N = Long.parseLong(st.nextToken());
+        A = Long.parseLong(st.nextToken());
+    }
 
-        long n = Long.parseLong(st.nextToken());
-        long primeNum = Long.parseLong(st.nextToken());
-        int cnt = 0;
-
-        for(long i = primeNum; i<=n; i*=primeNum){
-            cnt+= n/i;
+    public static void process(){
+        for(long i = A ; i <= N ; i = i*A){
+            answer += N/i;
         }
+        System.out.println(answer);
+    }
 
-        System.out.println(cnt);
+    public static void main(String[] args) throws Exception{
+        input();
+        process();
     }
 }
