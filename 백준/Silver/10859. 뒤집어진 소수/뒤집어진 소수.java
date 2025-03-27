@@ -3,66 +3,77 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) throws Exception{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        StringBuilder sb = new StringBuilder();
+    private static BufferedReader br;
+    private static StringBuilder sb;
+    private static StringTokenizer st;
+    private static long N;
 
+    public static void input() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        st = new StringTokenizer(br.readLine());
+        sb = new StringBuilder();
 
-        long n = Long.parseLong(st.nextToken());
-
-        if(!isPrime(n)){
-            System.out.println("no");
-        }else{
-            if(checkNum(n)){
-                System.out.println("no");
-            }else{
-                long ans = changeNum(n);
-                if(isPrime(ans)){
-                    System.out.println("yes");
-                }else{
-                    System.out.println("no");
-                }
-            }
+        N = Long.parseLong(st.nextToken());
+    }
+    public static boolean isPrime(long input){
+        if(input == 1){
+            return false;
         }
 
-
-    }
-
-    public static boolean isPrime(long input){
-        if (input ==1 ) return false;
-        for(long i = 2 ; i * i <= input; i++){
-            if(input %i ==0){
+        for(long i = 2 ; i * i <= N ; i++){
+            if(input % i == 0){
                 return false;
             }
         }
+
+        return true;
+
+    }
+    public static boolean checkNum(long input){
+        String line = String.valueOf(input);
+
+        if(line.contains("3") || line.contains("4") || line.contains("7")) return false;
+
         return true;
     }
 
-    public static boolean checkNum(long input){
-        long temp = input;
+    public static long reverseNum(long input){
+        long result = 0;
+        while (input > 0){
+            if(input % 10 == 6){
+                result = result * 10 + 9;
+            }else if(input % 10 == 9){
+                result = result * 10 + 6;
+            }else{
+                result = result * 10 + input % 10;
+            }
 
-        while (temp>0){
-           if(temp %10 ==3 ||temp %10 ==4|| temp %10 ==7){
-               return true;
-           }
-            temp /= 10;
+            input /= 10;
         }
-        return false;
+
+        return result;
     }
 
-    public static long changeNum(long input) {
-        long result = 0;
-        while(input>0){
-            if(input % 10 ==6){
-                result = result*10 +9;
-            }else if(input % 10 == 9){
-                result = result * 10+6;
+    public static void process(){
+        if(!isPrime(N)){
+            System.out.println("no");
+        }else{
+            //숫자인지 아닌지
+            if(!checkNum(N)){
+                System.out.println("no");
             }else{
-                result = result * 10 + input%10;
+                //뒤집고 소수
+                long reverseNum = reverseNum(N);
+
+                if(!isPrime(reverseNum)) System.out.println("no");
+                else System.out.println("yes");
             }
-            input /=10;
         }
-        return result;
+
+    }
+
+    public static void main(String[] args) throws Exception{
+        input();
+        process();
     }
 }
