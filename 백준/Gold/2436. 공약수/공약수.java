@@ -3,52 +3,48 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    private static BufferedReader br;
-    private static StringTokenizer st;
-    private static long gcd,lcm;
-    private static long temp;
-    private static long A,B;
+    public static void main(String[] args) throws Exception{
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                StringTokenizer st = new StringTokenizer(br.readLine());
+                long gcd = Long.parseLong(st.nextToken());
+                long lcm = Long.parseLong(st.nextToken());
+                long ans1 = gcd, ans2 = lcm;
 
-    //입력
-    public static void input() throws Exception {
-        br = new BufferedReader(new InputStreamReader(System.in));
+                long xy = gcd * lcm;
 
-        st = new StringTokenizer(br.readLine());
-        gcd = Long.parseLong(st.nextToken());
-        lcm = Long.parseLong(st.nextToken());
 
-        temp = gcd * lcm;
-        A = gcd;
-        B = lcm;
-    }
-    public static long foundGCD(long x, long y){
-        while(x%y != 0){
-            long temp = x%y;
-            x = y;
-            y = temp;
-        }
-        return y;
-    }
+                for (long i = 2 * gcd; i * i <= xy; i += gcd) {
+                    if (xy % i == 0) {
+                        long tmp = xy / i;
 
-    //실행
-    public static void process() {
-        for(long i = gcd ; i*i <= temp ; i+=gcd){
-            if(temp%i == 0 && foundGCD(i,temp/i) == gcd){
-                long a = i;
-                long b = temp/i;
-                if(A+B>a+b){
-                    A = a;
-                    B = b;
+                        if (gcd(i, tmp) == gcd) {
+                            if (ans1 + ans2 > i + tmp) {
+                                ans1 = i;
+                                ans2 = tmp;
+                            }
+                        }
+                    }
                 }
+
+                System.out.println(ans1 + " " + ans2);
+
+        }
+        private static long gcd(long a, long b){
+            if(b == 0){
+                return a;
             }
+            
+            while(a%b != 0){
+                long temp = a%b;
+                a = b;
+                b = temp;
+                
+            }
+            return b;
         }
 
-        System.out.println(A+" "+B);
+//        private static long gcd(long a, long b) {
+//            return b == 0 ? a : gcd(b, a % b);
+//        }
     }
 
-
-    public static void main(String[] args) throws Exception {
-        input();
-        process();
-    }
-}
