@@ -45,13 +45,9 @@ public class Main {
     public static void process() {
         for(int i = 0 ; i < M ; i++){
             int temp = B[i]%7;
-            int[] copyMod = new int[7];
-            int[] copyCheck = new int[7];
 
-            for(int j = 0 ; j < 7 ; j++){
-                copyMod = modA.clone();
-                copyCheck = check.clone();
-            }
+            int[] copyMod = modA.clone();
+            int[] copyCheck = check.clone();
 
             for(int j = 0 ; j < 7 ; j++){
                 if(modA[j] == 0) continue;
